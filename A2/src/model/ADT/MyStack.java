@@ -1,5 +1,9 @@
 package model.ADT;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Stack;
 
 public class MyStack<TElem> implements StackInterface<TElem>{
@@ -13,10 +17,10 @@ public class MyStack<TElem> implements StackInterface<TElem>{
     @Override
     public String toString(){
         String representation = "";
-//        for(TElem current: this.stack){
-//            representation += current.toString() + "; ";
-//        }
-        representation = stack.toString();
+        for(TElem current: this.stack){
+            representation += current.toString() + "; ";
+        }
+//        representation = stack.toString();
         return representation;
     }
 

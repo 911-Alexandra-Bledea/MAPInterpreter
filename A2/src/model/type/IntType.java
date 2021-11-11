@@ -1,6 +1,14 @@
 package model.type;
 
+import model.value.IntValue;
+import model.value.ValueInterface;
+
 public class IntType implements TypeInterface {
+
+    @Override
+    public ValueInterface defaultValue() {
+        return new IntValue();
+    }
 
     @Override
     public boolean equals(Object another){ return (another instanceof IntType);}

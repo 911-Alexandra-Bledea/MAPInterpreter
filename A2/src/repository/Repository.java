@@ -3,13 +3,27 @@ package repository;
 import exception.EmptyADTException;
 import model.ProgramState;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.*;
 
 public class Repository implements RepositoryInterface{
     private List<ProgramState> programStatesQueue;
+    private final String logFilePath;
 
-    public Repository(){
+    ///Need to add the filepath as param to constructor
+    public Repository(String filePath){
         programStatesQueue = new ArrayList<>();
+        this.logFilePath = filePath;
+    }
+
+    public void logPrgStateExec() throws Exception{
+        PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));
+        for(ProgramState prg: this.programStatesQueue){
+            logFile.append(prg.toString());
+        }
+        logFile.close();
     }
 
     @Override

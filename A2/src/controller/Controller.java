@@ -11,8 +11,8 @@ public class Controller implements ControllerInterface{
 
     public RepositoryInterface repository;
 
-    public Controller(){
-        repository = new Repository();
+    public Controller(RepositoryInterface repository){
+        this.repository = repository;
     }
 
     @Override
@@ -27,10 +27,10 @@ public class Controller implements ControllerInterface{
     public ProgramState fullProgramExecution() throws Exception {
         ProgramState currentProgramState = repository.getCurrentProgramState();
         StackInterface<StatementInterface> stack = currentProgramState.getExecutionStack();
-        System.out.println(currentProgramState);
+        this.repository.logPrgStateExec();
         while(stack.size()>0){
             this.oneStepExecution(currentProgramState);
-            System.out.println(currentProgramState);
+            this.repository.logPrgStateExec();
         }
         return currentProgramState;
     }

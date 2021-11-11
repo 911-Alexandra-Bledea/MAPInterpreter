@@ -16,8 +16,6 @@ public class VariableDeclarationStatement implements StatementInterface{
 
     private String name;
     private TypeInterface type;
-    public static final int DEFAULT_INT_VALUE = 0;
-    public static final boolean DEFAULT_BOOL_VALUE = false;
 
     public VariableDeclarationStatement(String name, TypeInterface type) {
         this.name = name;
@@ -36,10 +34,10 @@ public class VariableDeclarationStatement implements StatementInterface{
             throw new ExistingVariableException("Variable " + name + "is already declared!");
         }
         else if(type.equals(new IntType())){
-            symbolTable.insert(name, new IntValue(DEFAULT_INT_VALUE));
+            symbolTable.insert(name, new IntValue());
         }
         else if(type.equals(new BoolType())){
-            symbolTable.insert(name, new BoolValue(DEFAULT_BOOL_VALUE));
+            symbolTable.insert(name, new BoolValue());
         }
         else
         {

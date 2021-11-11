@@ -12,77 +12,92 @@ import model.type.BoolType;
 import model.type.IntType;
 import model.value.BoolValue;
 import model.value.IntValue;
+import model.value.StringValue;
 import model.value.ValueInterface;
+import repository.Repository;
+import repository.RepositoryInterface;
 
-import javax.management.ValueExp;
-import javax.swing.plaf.ComponentUI;
-import java.util.Scanner;
+import java.io.BufferedReader;
+
 
 public class View {
 
-    private ControllerInterface controller;
+    private final String FOLDER_PATH = "C:\\Users\\night\\Desktop\\Facultate An 2\\Semestrul 1\\Advanced Programming Methods\\MAPInterpreter\\A2";
 
-    public View(){
-        controller = new Controller();
+    public ControllerInterface getFirstExample() {
+        StatementInterface programExample1 = new CompoundStatement(new VariableDeclarationStatement("v", new IntType()),
+                new CompoundStatement(new AssignmentStatement("v", new ValueExpression(new IntValue(2))), new PrintStatement(new VariableExpression("v"))));
+
+        StackInterface<StatementInterface> executionStack = new MyStack<StatementInterface>();
+        DictionaryInterface<String, ValueInterface> symTable = new MyDictionary<String, ValueInterface>();
+        ListInterface<ValueInterface> output = new MyList<ValueInterface>();
+        DictionaryInterface<StringValue, BufferedReader> fileTable = new MyDictionary<StringValue, BufferedReader>();
+        ProgramState currentProgramState = new ProgramState(executionStack, symTable, output, fileTable, programExample1);
+        RepositoryInterface repo = new Repository(this.FOLDER_PATH + "\\log1.in");
+        ControllerInterface controller = new Controller(repo);
+
+        controller.addProgramState(currentProgramState);
+        return controller;
     }
 
-    public void start(){
-        int choice = -999999;
-        boolean done = false;
-        Scanner reader = new Scanner(System.in);
+    public ControllerInterface getSecondExample() {
+        StatementInterface programExample2 = new CompoundStatement(new VariableDeclarationStatement("a", new IntType()),
+                new CompoundStatement(new VariableDeclarationStatement("b", new IntType()), new CompoundStatement(new AssignmentStatement("a", new ArithmeticExpression(
+                        new ValueExpression(new IntValue(2)), new ArithmeticExpression(new ValueExpression(new IntValue(3)), new ValueExpression(new IntValue(0)), '/'), '+')),
+                        new CompoundStatement(new AssignmentStatement("b", new ArithmeticExpression(new VariableExpression("a"), new ValueExpression(new IntValue(1)), '+')),
+                                new PrintStatement(new VariableExpression("b"))))));
 
-        while(choice!=0){
-            System.out.println("0. Exit");
-            System.out.println("1. Input example 1");
-            System.out.println("2. Input example 2");
-            System.out.println("3. Input example 3");
+        StackInterface<StatementInterface> executionStack = new MyStack<StatementInterface>();
+        DictionaryInterface<String, ValueInterface> symTable = new MyDictionary<String, ValueInterface>();
+        ListInterface<ValueInterface> output = new MyList<ValueInterface>();
+        DictionaryInterface<StringValue, BufferedReader> fileTable = new MyDictionary<StringValue, BufferedReader>();
+        ProgramState currentProgramState = new ProgramState(executionStack, symTable, output, fileTable, programExample2);
+        RepositoryInterface repo = new Repository(this.FOLDER_PATH + "\\log3.in");
+        ControllerInterface controller = new Controller(repo);
 
-            choice = reader.nextInt();
+        controller.addProgramState(currentProgramState);
+        return controller;
+    }
 
-            if(choice == 0){
-                System.out.println("Program had ended! Goodbye!");
-                break;
-            }
+    public ControllerInterface getThirdExample() {
+        StatementInterface programExample3 = new CompoundStatement(
+                new VariableDeclarationStatement("a", new BoolType()),
+                new CompoundStatement(new VariableDeclarationStatement("v", new IntType()), new CompoundStatement(new AssignmentStatement("a", new ValueExpression(new BoolValue(true))),
+                        new CompoundStatement(new IfStatement(new VariableExpression("a"), new AssignmentStatement("v", new ValueExpression(new IntValue(2))),
+                                new AssignmentStatement("v", new ValueExpression(new IntValue(3)))), new PrintStatement(new VariableExpression("v"))))));
 
-            if(choice == 1){
-                StatementInterface programExample1= new CompoundStatement(new VariableDeclarationStatement("v",new IntType()),
-                        new CompoundStatement(new AssignmentStatement("v",new ValueExpression(new IntValue(2))), new PrintStatement(new VariableExpression("v"))));
+        StackInterface<StatementInterface> executionStack = new MyStack<StatementInterface>();
+        DictionaryInterface<String, ValueInterface> symTable = new MyDictionary<String, ValueInterface>();
+        ListInterface<ValueInterface> output = new MyList<ValueInterface>();
+        DictionaryInterface<StringValue, BufferedReader> fileTable = new MyDictionary<StringValue, BufferedReader>();
+        ProgramState currentProgramState = new ProgramState(executionStack, symTable, output, fileTable, programExample3);
+        RepositoryInterface repo = new Repository(this.FOLDER_PATH + "\\log3.in");
+        ControllerInterface controller = new Controller(repo);
 
-                addProgramState(programExample1);
-                executeProgramState();
+        controller.addProgramState(currentProgramState);
+        return controller;
+    }
 
-            }
+    public ControllerInterface getFourthExample() {
+        return null;
+    }
 
-            else if(choice == 2){
-                StatementInterface programExample2 = new CompoundStatement(new VariableDeclarationStatement("a",new IntType()),
-                        new CompoundStatement(new VariableDeclarationStatement("b",new IntType()), new CompoundStatement(new AssignmentStatement("a", new ArithmeticExpression(
-                                new ValueExpression(new IntValue(2)), new ArithmeticExpression(new ValueExpression(new IntValue(3)), new ValueExpression(new IntValue(0)), '/'), '+')),
-                                        new CompoundStatement(new AssignmentStatement("b", new ArithmeticExpression(new VariableExpression("a"), new ValueExpression(new IntValue(1)), '+')),
-                                                new PrintStatement(new VariableExpression("b"))))));
+    public void start() {
 
-                addProgramState(programExample2);
-                executeProgramState();
+        TextMenu textMenu = new TextMenu();
 
-            }
-
-            else if(choice == 3){
-                StatementInterface programExample3 = new CompoundStatement(
-                        new VariableDeclarationStatement("a", new BoolType()),
-                        new CompoundStatement(new VariableDeclarationStatement("v", new IntType()), new CompoundStatement(new AssignmentStatement("a", new ValueExpression(new BoolValue(true))),
-                                        new CompoundStatement(new IfStatement(new VariableExpression("a"), new AssignmentStatement("v", new ValueExpression(new IntValue(2))),
-                                                        new AssignmentStatement("v", new ValueExpression(new IntValue(3)))), new PrintStatement(new VariableExpression("v"))))));
-
-                addProgramState(programExample3);
-                executeProgramState();
-            }
-            else {
-                System.out.println("Invalid choice!\n");
-            }
+        try {
+            textMenu.addCommand(new ExitCommand("0", "Exit program"));
+            textMenu.addCommand(new RunExampleCommand("1", " int v; v=2; Print(v)", this.getFirstExample()));
+            textMenu.addCommand(new RunExampleCommand("2", "int a; int b; a=2+3*5; b=a+1; Print(b)", this.getSecondExample()));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-
-        reader.close();
+        textMenu.show();
     }
+}
 
+/*
     public void executeProgramState(){
         try{
             ProgramState finishedProgram = this.controller.fullProgramExecution();
@@ -92,13 +107,20 @@ public class View {
             System.out.println(e.getMessage());
         }
     }
+ */
 
-    public void addProgramState(StatementInterface programExample2) {
-        StackInterface<StatementInterface> stack = new MyStack<StatementInterface>();
-        DictionaryInterface<String, ValueInterface> symbolTable = new MyDictionary<String, ValueInterface>();
+/*
+    public ControllerInterface addProgramState(StatementInterface state) {
+        StackInterface<StatementInterface> executionStack = new MyStack<StatementInterface>();
+        DictionaryInterface<String, ValueInterface> symTable = new MyDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> output = new MyList<ValueInterface>();
-        ProgramState crtProgramState = new ProgramState(stack, symbolTable, output, programExample2);
+        DictionaryInterface<StringValue, BufferedReader> fileTable = new MyDictionary<StringValue, BufferedReader>();
+        ProgramState currentProgramState = new ProgramState(executionStack, symTable, output, fileTable, state);
+        RepositoryInterface repo = new Repository(this.FOLDER_PATH + "\\log1.in");
+        ControllerInterface controller = new Controller(repo);
 
-        this.controller.addProgramState(crtProgramState);
+        controller.addProgramState(currentProgramState);
+        return controller;
+
     }
-}
+ */
