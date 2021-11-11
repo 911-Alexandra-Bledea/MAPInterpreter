@@ -43,7 +43,7 @@ public class View {
     public ControllerInterface getSecondExample() {
         StatementInterface programExample2 = new CompoundStatement(new VariableDeclarationStatement("a", new IntType()),
                 new CompoundStatement(new VariableDeclarationStatement("b", new IntType()), new CompoundStatement(new AssignmentStatement("a", new ArithmeticExpression(
-                        new ValueExpression(new IntValue(2)), new ArithmeticExpression(new ValueExpression(new IntValue(3)), new ValueExpression(new IntValue(0)), '/'), '+')),
+                        new ValueExpression(new IntValue(2)), new ArithmeticExpression(new ValueExpression(new IntValue(3)), new ValueExpression(new IntValue(5)), '*'), '+')),
                         new CompoundStatement(new AssignmentStatement("b", new ArithmeticExpression(new VariableExpression("a"), new ValueExpression(new IntValue(1)), '+')),
                                 new PrintStatement(new VariableExpression("b"))))));
 
@@ -52,7 +52,7 @@ public class View {
         ListInterface<ValueInterface> output = new MyList<ValueInterface>();
         DictionaryInterface<StringValue, BufferedReader> fileTable = new MyDictionary<StringValue, BufferedReader>();
         ProgramState currentProgramState = new ProgramState(executionStack, symTable, output, fileTable, programExample2);
-        RepositoryInterface repo = new Repository(this.FOLDER_PATH + "\\log3.in");
+        RepositoryInterface repo = new Repository(this.FOLDER_PATH + "\\log2.in");
         ControllerInterface controller = new Controller(repo);
 
         controller.addProgramState(currentProgramState);

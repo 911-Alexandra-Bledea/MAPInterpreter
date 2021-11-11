@@ -13,12 +13,12 @@ public class MyDictionary<TKey, TValue> implements DictionaryInterface<TKey, TVa
 
     @Override
     public String toString(){
-        String representation = dictionary.toString();
-//        Collection<TKey> allKeys = dictionary.keySet();
-//        for(TKey key: allKeys){
-//            representation += (key.toString() + ": " + dictionary.get(key) + " , ");
-//        }
-//        representation += " ]";
+        String representation = "[ \n";
+        Collection<TKey> allKeys = dictionary.keySet();
+        for(TKey key: allKeys){
+            representation += (key.toString() + ": " + dictionary.get(key) + ", \n");
+        }
+        representation += "]";
         return representation;
     }
 

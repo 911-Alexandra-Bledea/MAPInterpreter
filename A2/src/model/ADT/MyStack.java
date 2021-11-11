@@ -1,24 +1,21 @@
 package model.ADT;
 
 import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class MyStack<TElem> implements StackInterface<TElem>{
 
-    private Stack<TElem> stack;
+    private ArrayDeque<TElem> stack;
 
     public MyStack(){
-        stack = new Stack<TElem>();
+        stack = new ArrayDeque<>();
     }
 
     @Override
     public String toString(){
         String representation = "";
-        for(TElem current: this.stack){
-            representation += current.toString() + "; ";
+        for(TElem current: stack){
+            representation += current.toString() + "\n";
         }
 //        representation = stack.toString();
         return representation;

@@ -15,10 +15,10 @@ public class MyList<TElem> implements ListInterface<TElem>{
 
     @Override
     public String toString(){
-        String representation = list.toString();
-//        for(TElem elem: list){
-//            representation += (elem.toString() + ", ");
-//        }
+        String representation = "";
+        for(TElem elem: list){
+            representation += (elem.toString() + "\n");
+        }
 
         return representation;
     }

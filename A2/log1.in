@@ -1,55 +1,79 @@
 
 ------------------
 Execution Stack: 
-(int v;(v=2;print(v))); 
+(int v;(v=2;print(v)))
+
 Symbol Table:
-{}
+[ 
+]
 Output Table:
-[]
+
 File Table:
-{}
+[ 
+]
 ------------------
 Execution Stack: 
-(v=2;print(v)); int v; 
+int v
+(v=2;print(v))
+
 Symbol Table:
-{}
+[ 
+]
 Output Table:
-[]
+
 File Table:
-{}
+[ 
+]
 ------------------
 Execution Stack: 
-(v=2;print(v)); 
+(v=2;print(v))
+
 Symbol Table:
-{v=0}
+[ 
+v: 0, 
+]
 Output Table:
-[]
+
 File Table:
-{}
+[ 
+]
 ------------------
 Execution Stack: 
-print(v); v=2; 
+v=2
+print(v)
+
 Symbol Table:
-{v=0}
+[ 
+v: 0, 
+]
 Output Table:
-[]
+
 File Table:
-{}
+[ 
+]
 ------------------
 Execution Stack: 
-print(v); 
+print(v)
+
 Symbol Table:
-{v=2}
+[ 
+v: 2, 
+]
 Output Table:
-[]
+
 File Table:
-{}
+[ 
+]
 ------------------
 Execution Stack: 
 
 Symbol Table:
-{v=2}
+[ 
+v: 2, 
+]
 Output Table:
-[2]
+2
+
 File Table:
-{}
+[ 
+]
