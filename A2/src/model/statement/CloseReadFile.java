@@ -15,8 +15,11 @@ import java.io.BufferedReader;
 public class CloseReadFile implements StatementInterface{
 
 
-    private ExpressionInterface filePath;
-    private String variableName;
+    private final ExpressionInterface filePath;
+
+    public CloseReadFile(ExpressionInterface filePath){
+        this.filePath = filePath;
+    }
 
     @Override
     public ProgramState execute(ProgramState state) throws Exception{
@@ -42,6 +45,11 @@ public class CloseReadFile implements StatementInterface{
     }
     public String toString(){
         return "closeRead(" + this.filePath + ");\n";
+    }
+
+    @Override
+    public StatementInterface deepCopy() {
+        return new CloseReadFile(filePath);
     }
 
 }

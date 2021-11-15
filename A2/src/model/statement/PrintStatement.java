@@ -19,6 +19,11 @@ public class PrintStatement implements StatementInterface{
     }
 
     @Override
+    public StatementInterface deepCopy() {
+        return new PrintStatement(expression);
+    }
+
+    @Override
     public ProgramState execute(ProgramState state) throws Exception {
         ListInterface<ValueInterface> output = state.getOutput();
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();

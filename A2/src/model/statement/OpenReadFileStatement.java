@@ -17,6 +17,10 @@ public class OpenReadFileStatement implements StatementInterface {
 
     private ExpressionInterface filePath;
 
+    public OpenReadFileStatement(ExpressionInterface filePath){
+        this.filePath = filePath;
+    }
+
     public ProgramState execute(ProgramState state) throws Exception{
 
         DictionaryInterface<String, ValueInterface> symTable = state.getSymbolTable();
@@ -40,6 +44,11 @@ public class OpenReadFileStatement implements StatementInterface {
 
     public String toString(){
         return "openRead(" + this.filePath + ");\n";
+    }
+
+    @Override
+    public StatementInterface deepCopy() {
+        return new OpenReadFileStatement(filePath);
     }
 
 }

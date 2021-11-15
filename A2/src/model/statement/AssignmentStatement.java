@@ -26,6 +26,11 @@ public class AssignmentStatement implements StatementInterface{
     }
 
     @Override
+    public StatementInterface deepCopy() {
+        return new AssignmentStatement(id, expression);
+    }
+
+    @Override
     public ProgramState execute(ProgramState state) throws Exception {
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();
         if(symbolTable.containsKey(id)){

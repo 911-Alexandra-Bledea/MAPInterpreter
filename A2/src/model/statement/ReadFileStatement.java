@@ -5,6 +5,7 @@ import exception.UndefinedVariableException;
 import model.ADT.DictionaryInterface;
 import model.ProgramState;
 import model.expression.ExpressionInterface;
+import model.expression.RelationalExpression;
 import model.type.IntType;
 import model.type.StringType;
 import model.value.IntValue;
@@ -17,6 +18,11 @@ public class ReadFileStatement implements StatementInterface{
 
     private ExpressionInterface filePath;
     private String variableName;
+
+    public ReadFileStatement(ExpressionInterface filePath, String variableName){
+        this.filePath = filePath;
+        this.variableName = variableName;
+    }
 
     @Override
     public ProgramState execute(ProgramState state) throws Exception{
@@ -59,6 +65,11 @@ public class ReadFileStatement implements StatementInterface{
     @Override
     public String toString(){
         return "readFile(" + this.filePath + ");\n";
+    }
+
+    @Override
+    public StatementInterface deepCopy() {
+        return new ReadFileStatement(filePath, variableName);
     }
 
 }

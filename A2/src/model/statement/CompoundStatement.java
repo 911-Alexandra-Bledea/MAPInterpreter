@@ -18,6 +18,11 @@ public class CompoundStatement implements StatementInterface{
     }
 
     @Override
+    public StatementInterface deepCopy() {
+        return new CompoundStatement(firstStatement, secondStatement);
+    }
+
+    @Override
     public ProgramState execute(ProgramState state) throws Exception {
         StackInterface<StatementInterface> stack = state.getExecutionStack();
         stack.push(secondStatement);

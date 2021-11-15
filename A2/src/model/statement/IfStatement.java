@@ -26,6 +26,11 @@ public class IfStatement implements StatementInterface {
     }
 
     @Override
+    public StatementInterface deepCopy() {
+        return new IfStatement(expression, trueStatement, falseStatement);
+    }
+
+    @Override
     public ProgramState execute(ProgramState state) throws Exception {
         StackInterface<StatementInterface> stack = state.getExecutionStack();
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();

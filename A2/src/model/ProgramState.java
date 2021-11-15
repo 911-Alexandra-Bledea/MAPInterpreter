@@ -30,7 +30,7 @@ public class ProgramState {
         this.symbolTable = symbolTable;
         this.output = output;
         this.fileTable = fileTable;
-//        this.originalProgram = program;
+        this.originalProgram = program.deepCopy();
 //        this.executionStack.push(originalProgram);
         this.executionStack.push(program);
     }

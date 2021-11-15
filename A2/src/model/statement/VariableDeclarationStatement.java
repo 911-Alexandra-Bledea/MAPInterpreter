@@ -7,9 +7,11 @@ import model.ADT.StackInterface;
 import model.ProgramState;
 import model.type.BoolType;
 import model.type.IntType;
+import model.type.StringType;
 import model.type.TypeInterface;
 import model.value.BoolValue;
 import model.value.IntValue;
+import model.value.StringValue;
 import model.value.ValueInterface;
 
 public class VariableDeclarationStatement implements StatementInterface{
@@ -28,6 +30,11 @@ public class VariableDeclarationStatement implements StatementInterface{
     }
 
     @Override
+    public StatementInterface deepCopy() {
+        return new VariableDeclarationStatement(name, type);
+    }
+
+    @Override
     public ProgramState execute(ProgramState state) throws Exception {
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();
         if(symbolTable.containsKey(name)){
@@ -38,6 +45,9 @@ public class VariableDeclarationStatement implements StatementInterface{
         }
         else if(type.equals(new BoolType())){
             symbolTable.insert(name, new BoolValue());
+        }
+        else if(type.equals(new StringType())){
+            symbolTable.insert(name, new StringValue());
         }
         else
         {
