@@ -2,12 +2,10 @@ package view;
 
 import controller.Controller;
 import controller.ControllerInterface;
+import jdk.dynalink.support.AbstractRelinkableCallSite;
 import model.ADT.*;
 import model.ProgramState;
-import model.expression.ArithmeticExpression;
-import model.expression.ExpressionInterface;
-import model.expression.ValueExpression;
-import model.expression.VariableExpression;
+import model.expression.*;
 import model.statement.*;
 import model.type.BoolType;
 import model.type.IntType;
@@ -32,21 +30,37 @@ public class View {
         String FOLDER_PATH = "C:\\Users\\night\\Desktop\\Facultate An 2\\Semestrul 1\\Advanced Programming Methods\\MAPInterpreter\\A2";
 
         /// EXAMPLE 1
-        StatementInterface programExample1 = new CompoundStatement(new VariableDeclarationStatement("v", new IntType()),
-                new CompoundStatement(new AssignmentStatement("v", new ValueExpression(new IntValue(2))), new PrintStatement(new VariableExpression("v"))));
+        /// int v; v=2;Print(v)
+        StatementInterface declare_v = new VariableDeclarationStatement("v", new IntType());
+        StatementInterface assign_v = new AssignmentStatement("v", new ValueExpression(new IntValue(2)));
+        StatementInterface print_v = new PrintStatement(new VariableExpression("v"));
+
+        StatementInterface programExample1 = new CompoundStatement(declare_v, new CompoundStatement(assign_v, print_v));
+
         ProgramState currentProgramState1 = new ProgramState(new MyStack<StatementInterface>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), programExample1);
+
         RepositoryInterface repo1 = new Repository(FOLDER_PATH + "\\log1.in");
         ControllerInterface controller1 = new Controller(repo1);
 
         controller1.addProgramState(currentProgramState1);
 
+
+
         /// EXAMPLE 2
-        StatementInterface programExample2 = new CompoundStatement(new VariableDeclarationStatement("a", new IntType()),
-                new CompoundStatement(new VariableDeclarationStatement("b", new IntType()), new CompoundStatement(new AssignmentStatement("a", new ArithmeticExpression(
-                        new ValueExpression(new IntValue(2)), new ArithmeticExpression(new ValueExpression(new IntValue(3)), new ValueExpression(new IntValue(5)), '*'), '+')),
-                        new CompoundStatement(new AssignmentStatement("b", new ArithmeticExpression(new VariableExpression("a"), new ValueExpression(new IntValue(1)), '+')),
-                                new PrintStatement(new VariableExpression("b"))))));
+        /// int a;int b; a=2+3*5;b=a+1;Print(b)
+        StatementInterface declare_a = new VariableDeclarationStatement("a", new IntType());
+        StatementInterface declare_b = new VariableDeclarationStatement("b", new IntType());
+        ExpressionInterface multiply_a = new ArithmeticExpression(new ValueExpression(new IntValue(3)), new ValueExpression(new IntValue(5)), '*');
+        ExpressionInterface add_a = new ArithmeticExpression(multiply_a, new ValueExpression(new IntValue(2)), '+');
+        StatementInterface assign_a = new AssignmentStatement("a", add_a);
+        ExpressionInterface add_b = new ArithmeticExpression(new VariableExpression("a"), new ValueExpression(new IntValue(1)), '+');
+        StatementInterface assign_b = new AssignmentStatement("b", add_b);
+        StatementInterface print_b = new PrintStatement(new VariableExpression("b"));
+
+        StatementInterface programExample2 = new CompoundStatement(declare_a, new CompoundStatement(declare_b,
+                new CompoundStatement(assign_a, new CompoundStatement(assign_b, print_b))));
+
         ProgramState currentProgramState2 = new ProgramState(new MyStack<StatementInterface>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), programExample2);
         RepositoryInterface repo2 = new Repository(FOLDER_PATH + "\\log2.in");
@@ -54,18 +68,30 @@ public class View {
 
         controller2.addProgramState(currentProgramState2);
 
+
+
+
         /// EXAMPLE 3
-        StatementInterface programExample3 = new CompoundStatement(
-                new VariableDeclarationStatement("a", new BoolType()),
-                new CompoundStatement(new VariableDeclarationStatement("v", new IntType()), new CompoundStatement(new AssignmentStatement("a", new ValueExpression(new BoolValue(true))),
-                        new CompoundStatement(new IfStatement(new VariableExpression("a"), new AssignmentStatement("v", new ValueExpression(new IntValue(2))),
-                                new AssignmentStatement("v", new ValueExpression(new IntValue(3)))), new PrintStatement(new VariableExpression("v"))))));
+        /// bool a; int v; a=true;(If a Then v=2 Else v=3);Print(v)
+        StatementInterface declare_a3 = new VariableDeclarationStatement("a", new BoolType());
+        StatementInterface declare_v3 = new VariableDeclarationStatement("v", new IntType());
+        StatementInterface assign_a3 = new AssignmentStatement("a", new ValueExpression(new BoolValue(true)));
+        StatementInterface assign_v_1 = new AssignmentStatement("v", new ValueExpression(new IntValue(2)));
+        StatementInterface assign_v_2 = new AssignmentStatement("v", new ValueExpression(new IntValue(3)));
+        StatementInterface if_statement3 = new IfStatement(new VariableExpression("a"), assign_v_1, assign_v_2);
+        StatementInterface print_v3 = new PrintStatement(new VariableExpression("v"));
+
+        StatementInterface programExample3 = new CompoundStatement(declare_a3, new CompoundStatement(declare_v3, new CompoundStatement(assign_a3,
+                        new CompoundStatement(if_statement3, print_v3))));
         ProgramState currentProgramState3 = new ProgramState(new MyStack<StatementInterface>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), programExample3);
         RepositoryInterface repo3 = new Repository(FOLDER_PATH + "\\log3.in");
         ControllerInterface controller3 = new Controller(repo3);
 
         controller3.addProgramState(currentProgramState3);
+
+
+
 
         /// EXAMPLE 4
         StatementInterface stringDeclaration = new VariableDeclarationStatement("varf", new StringType());
@@ -87,12 +113,36 @@ public class View {
 
         controller4.addProgramState(currentProgramState4);
 
+
+        /// EXAMPLE 5
+        ///int a; a = 3; int b; b = 4; IF (a > b) THEN print(a) ELSE print(b)
+
+        StatementInterface declare_a5 = new VariableDeclarationStatement("a", new IntType());
+        StatementInterface assign_a5 = new AssignmentStatement("a", new ValueExpression(new IntValue(25)));
+        StatementInterface declare_b5 = new VariableDeclarationStatement("b", new IntType());
+        StatementInterface assign_b5 = new AssignmentStatement("b", new ValueExpression(new IntValue(30)));
+        ExpressionInterface relationalExpression5 = new RelationalExpression(new VariableExpression("a"), new VariableExpression("b"), "<");
+        StatementInterface print_a5 = new PrintStatement(new VariableExpression("a"));
+        StatementInterface print_b5 = new PrintStatement(new VariableExpression("b"));
+        StatementInterface if_statement5 = new IfStatement(relationalExpression5, print_a5, print_b5);
+
+        StatementInterface programExample5 = new CompoundStatement(declare_a5, new CompoundStatement(assign_a5,
+                new CompoundStatement(declare_b5, new CompoundStatement(assign_b5, if_statement5))));
+
+        ProgramState currentProgramState5 = new ProgramState(new MyStack<>(), new MyDictionary<String, ValueInterface>(),
+                new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), programExample5);
+        RepositoryInterface repo5 = new Repository(FOLDER_PATH + "\\log5.in");
+        ControllerInterface controller5 = new Controller(repo5);
+
+        controller5.addProgramState(currentProgramState5);
+
         TextMenu textMenu = new TextMenu();
 
         try {
             textMenu.addCommand(new ExitCommand("0", "Exit program"));
             textMenu.addCommand(new RunExampleCommand("1", " int v; v=2; Print(v)", controller1));
             textMenu.addCommand(new RunExampleCommand("2", "int a; int b; a=2+3*5; b=a+1; Print(b)", controller2));
+            textMenu.addCommand(new RunExampleCommand("3", "bool a; int v; a=true;(If a Then v=2 Else v=3);Print(v)", controller3));
             textMenu.addCommand(new RunExampleCommand("4", "string varf; " +
                     " varf=\"test.in\"; " +
                     " openRFile(varf); " +
@@ -100,6 +150,7 @@ public class View {
                     " readFile(varf,varc) ;print(varc); " +
                     " readFile(varf,varc); print(varc) " +
                     " closeRFile(varf) ", controller4));
+            textMenu.addCommand(new RunExampleCommand("5", "int a; a = 25; int b; b = 30; IF (a < b) THEN print(a) ELSE print(b)", controller5));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

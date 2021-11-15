@@ -20,6 +20,7 @@ public class TextMenu {
     private void printMenu(){
         for(Command c: commands.getAllValues()){
             String line = String.format("%4s : %s", c.getKey(), c.getDescription());
+            System.out.println(line);
         }
     }
 
