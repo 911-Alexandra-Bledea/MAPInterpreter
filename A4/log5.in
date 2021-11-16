@@ -1,0 +1,151 @@
+
+------------------
+Execution Stack: 
+(int a;(a=25;(int b;(b=30;IF(a < b)THEN(print(a))ELSE(print(b)))))))
+
+Symbol Table:
+[ 
+]
+Output Table:
+
+File Table:
+[ 
+]
+------------------
+Execution Stack: 
+int a
+(a=25;(int b;(b=30;IF(a < b)THEN(print(a))ELSE(print(b))))))
+
+Symbol Table:
+[ 
+]
+Output Table:
+
+File Table:
+[ 
+]
+------------------
+Execution Stack: 
+(a=25;(int b;(b=30;IF(a < b)THEN(print(a))ELSE(print(b))))))
+
+Symbol Table:
+[ 
+a: 0, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+------------------
+Execution Stack: 
+a=25
+(int b;(b=30;IF(a < b)THEN(print(a))ELSE(print(b)))))
+
+Symbol Table:
+[ 
+a: 0, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+------------------
+Execution Stack: 
+(int b;(b=30;IF(a < b)THEN(print(a))ELSE(print(b)))))
+
+Symbol Table:
+[ 
+a: 25, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+------------------
+Execution Stack: 
+int b
+(b=30;IF(a < b)THEN(print(a))ELSE(print(b))))
+
+Symbol Table:
+[ 
+a: 25, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+------------------
+Execution Stack: 
+(b=30;IF(a < b)THEN(print(a))ELSE(print(b))))
+
+Symbol Table:
+[ 
+a: 25, 
+b: 0, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+------------------
+Execution Stack: 
+b=30
+IF(a < b)THEN(print(a))ELSE(print(b)))
+
+Symbol Table:
+[ 
+a: 25, 
+b: 0, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+------------------
+Execution Stack: 
+IF(a < b)THEN(print(a))ELSE(print(b)))
+
+Symbol Table:
+[ 
+a: 25, 
+b: 30, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+------------------
+Execution Stack: 
+print(a)
+
+Symbol Table:
+[ 
+a: 25, 
+b: 30, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+------------------
+Execution Stack: 
+
+Symbol Table:
+[ 
+a: 25, 
+b: 30, 
+]
+Output Table:
+25
+
+File Table:
+[ 
+]
