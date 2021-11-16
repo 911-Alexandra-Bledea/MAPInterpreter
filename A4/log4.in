@@ -102,3 +102,75 @@ Output Table:
 File Table:
 [ 
 ]
+------------------
+Execution Stack: 
+(int varc;(readFile(varf);
+;(print(varc);(readFile(varf);
+;(print(varc);closeRead(varf);
+)))))
+
+Symbol Table:
+[ 
+varf: test.in, 
+]
+Output Table:
+
+File Table:
+[ 
+test.in: java.io.BufferedReader@2e5d6d97, 
+]
+------------------
+Execution Stack: 
+int varc
+(readFile(varf);
+;(print(varc);(readFile(varf);
+;(print(varc);closeRead(varf);
+))))
+
+Symbol Table:
+[ 
+varf: test.in, 
+]
+Output Table:
+
+File Table:
+[ 
+test.in: java.io.BufferedReader@2e5d6d97, 
+]
+------------------
+Execution Stack: 
+(readFile(varf);
+;(print(varc);(readFile(varf);
+;(print(varc);closeRead(varf);
+))))
+
+Symbol Table:
+[ 
+varf: test.in, 
+varc: 0, 
+]
+Output Table:
+
+File Table:
+[ 
+test.in: java.io.BufferedReader@2e5d6d97, 
+]
+------------------
+Execution Stack: 
+readFile(varf);
+
+(print(varc);(readFile(varf);
+;(print(varc);closeRead(varf);
+)))
+
+Symbol Table:
+[ 
+varf: test.in, 
+varc: 0, 
+]
+Output Table:
+
+File Table:
+[ 
+test.in: java.io.BufferedReader@2e5d6d97, 
+]
