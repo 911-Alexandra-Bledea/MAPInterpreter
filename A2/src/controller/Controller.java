@@ -26,6 +26,7 @@ public class Controller implements ControllerInterface{
     @Override
     public ProgramState fullProgramExecution() throws Exception {
         ProgramState currentProgramState = repository.getCurrentProgramState();
+        this.repository.clearFile();
         StackInterface<StatementInterface> stack = currentProgramState.getExecutionStack();
         this.repository.logPrgStateExec();
         while(stack.size()>0){

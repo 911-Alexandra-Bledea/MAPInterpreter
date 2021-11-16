@@ -1,0 +1,316 @@
+
+------------------
+Execution Stack: 
+(String varf;(varf=test.in;(openRead(varf);
+;(int varc;(readFile(varf);
+;(print(varc);(readFile(varf);
+;(print(varc);closeRead(varf);
+))))))))
+
+Symbol Table:
+[ 
+]
+Output Table:
+
+File Table:
+[ 
+]
+------------------
+Execution Stack: 
+String varf
+(varf=test.in;(openRead(varf);
+;(int varc;(readFile(varf);
+;(print(varc);(readFile(varf);
+;(print(varc);closeRead(varf);
+)))))))
+
+Symbol Table:
+[ 
+]
+Output Table:
+
+File Table:
+[ 
+]
+------------------
+Execution Stack: 
+(varf=test.in;(openRead(varf);
+;(int varc;(readFile(varf);
+;(print(varc);(readFile(varf);
+;(print(varc);closeRead(varf);
+)))))))
+
+Symbol Table:
+[ 
+varf: , 
+]
+Output Table:
+
+File Table:
+[ 
+]
+------------------
+Execution Stack: 
+varf=test.in
+(openRead(varf);
+;(int varc;(readFile(varf);
+;(print(varc);(readFile(varf);
+;(print(varc);closeRead(varf);
+))))))
+
+Symbol Table:
+[ 
+varf: , 
+]
+Output Table:
+
+File Table:
+[ 
+]
+------------------
+Execution Stack: 
+(openRead(varf);
+;(int varc;(readFile(varf);
+;(print(varc);(readFile(varf);
+;(print(varc);closeRead(varf);
+))))))
+
+Symbol Table:
+[ 
+varf: test.in, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+------------------
+Execution Stack: 
+openRead(varf);
+
+(int varc;(readFile(varf);
+;(print(varc);(readFile(varf);
+;(print(varc);closeRead(varf);
+)))))
+
+Symbol Table:
+[ 
+varf: test.in, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+------------------
+Execution Stack: 
+(int varc;(readFile(varf);
+;(print(varc);(readFile(varf);
+;(print(varc);closeRead(varf);
+)))))
+
+Symbol Table:
+[ 
+varf: test.in, 
+]
+Output Table:
+
+File Table:
+[ 
+test.in: java.io.BufferedReader@2e5d6d97, 
+]
+------------------
+Execution Stack: 
+int varc
+(readFile(varf);
+;(print(varc);(readFile(varf);
+;(print(varc);closeRead(varf);
+))))
+
+Symbol Table:
+[ 
+varf: test.in, 
+]
+Output Table:
+
+File Table:
+[ 
+test.in: java.io.BufferedReader@2e5d6d97, 
+]
+------------------
+Execution Stack: 
+(readFile(varf);
+;(print(varc);(readFile(varf);
+;(print(varc);closeRead(varf);
+))))
+
+Symbol Table:
+[ 
+varf: test.in, 
+varc: 0, 
+]
+Output Table:
+
+File Table:
+[ 
+test.in: java.io.BufferedReader@2e5d6d97, 
+]
+------------------
+Execution Stack: 
+readFile(varf);
+
+(print(varc);(readFile(varf);
+;(print(varc);closeRead(varf);
+)))
+
+Symbol Table:
+[ 
+varf: test.in, 
+varc: 0, 
+]
+Output Table:
+
+File Table:
+[ 
+test.in: java.io.BufferedReader@2e5d6d97, 
+]
+------------------
+Execution Stack: 
+(print(varc);(readFile(varf);
+;(print(varc);closeRead(varf);
+)))
+
+Symbol Table:
+[ 
+varf: test.in, 
+varc: 15, 
+]
+Output Table:
+
+File Table:
+[ 
+test.in: java.io.BufferedReader@2e5d6d97, 
+]
+------------------
+Execution Stack: 
+print(varc)
+(readFile(varf);
+;(print(varc);closeRead(varf);
+))
+
+Symbol Table:
+[ 
+varf: test.in, 
+varc: 15, 
+]
+Output Table:
+
+File Table:
+[ 
+test.in: java.io.BufferedReader@2e5d6d97, 
+]
+------------------
+Execution Stack: 
+(readFile(varf);
+;(print(varc);closeRead(varf);
+))
+
+Symbol Table:
+[ 
+varf: test.in, 
+varc: 15, 
+]
+Output Table:
+15
+
+File Table:
+[ 
+test.in: java.io.BufferedReader@2e5d6d97, 
+]
+------------------
+Execution Stack: 
+readFile(varf);
+
+(print(varc);closeRead(varf);
+)
+
+Symbol Table:
+[ 
+varf: test.in, 
+varc: 15, 
+]
+Output Table:
+15
+
+File Table:
+[ 
+test.in: java.io.BufferedReader@2e5d6d97, 
+]
+------------------
+Execution Stack: 
+(print(varc);closeRead(varf);
+)
+
+Symbol Table:
+[ 
+varf: test.in, 
+varc: 50, 
+]
+Output Table:
+15
+
+File Table:
+[ 
+test.in: java.io.BufferedReader@2e5d6d97, 
+]
+------------------
+Execution Stack: 
+print(varc)
+closeRead(varf);
+
+
+Symbol Table:
+[ 
+varf: test.in, 
+varc: 50, 
+]
+Output Table:
+15
+
+File Table:
+[ 
+test.in: java.io.BufferedReader@2e5d6d97, 
+]
+------------------
+Execution Stack: 
+closeRead(varf);
+
+
+Symbol Table:
+[ 
+varf: test.in, 
+varc: 50, 
+]
+Output Table:
+15
+50
+
+File Table:
+[ 
+test.in: java.io.BufferedReader@2e5d6d97, 
+]
+------------------
+Execution Stack: 
+
+Symbol Table:
+[ 
+varf: test.in, 
+varc: 50, 
+]
+Output Table:
+15
+50
+
+File Table:
+[ 
+]

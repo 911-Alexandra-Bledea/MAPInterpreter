@@ -11,6 +11,7 @@ import model.value.StringValue;
 import model.value.ValueInterface;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class OpenReadFileStatement implements StatementInterface {
@@ -34,10 +35,13 @@ public class OpenReadFileStatement implements StatementInterface {
             throw new ExistingVariableException("The filepath is already a key in FileTable!\n");
         }
 
-        BufferedReader fileBuffer = new BufferedReader(new FileReader(filePathValue.toString()));
-
-        fileTable.insert((StringValue) filePathValue, fileBuffer);
-
+        try {
+            BufferedReader fileBuffer = new BufferedReader(new FileReader(((StringValue) filePathValue).getValue()));
+            fileTable.insert((StringValue) filePathValue, fileBuffer);
+        }
+        catch (FileNotFoundException ex){
+            throw new Exception(ex.getMessage());
+        }
         return state;
     }
 

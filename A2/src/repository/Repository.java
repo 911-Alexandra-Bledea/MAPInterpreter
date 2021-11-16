@@ -1,11 +1,14 @@
 package repository;
 
 import exception.EmptyADTException;
+import exception.RepositoryException;
 import model.ProgramState;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.rmi.RemoteException;
 import java.util.*;
 
 public class Repository implements RepositoryInterface{
@@ -18,12 +21,30 @@ public class Repository implements RepositoryInterface{
         this.logFilePath = filePath;
     }
 
-    public void logPrgStateExec() throws Exception{
-        PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));
-        for(ProgramState prg: this.programStatesQueue){
-            logFile.append(prg.toString());
+    public void logPrgStateExec() throws Exception {
+        try {
+            PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));
+            for (ProgramState prg : this.programStatesQueue) {
+                logFile.append(prg.toString());
+            }
+            logFile.close();
         }
-        logFile.close();
+        catch (IOException exception){
+            throw new RepositoryException("Error opening the file!\n");
+        }
+    }
+
+    @Override
+    public void clearFile() throws Exception {
+        try
+         {
+            PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(this.logFilePath, false)));
+            logFile.append("");
+            logFile.close();
+        }
+            catch (IOException exception){
+            throw new RepositoryException("Error opening the file!\n");
+        }
     }
 
     @Override

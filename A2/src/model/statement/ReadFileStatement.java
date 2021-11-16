@@ -13,6 +13,7 @@ import model.value.StringValue;
 import model.value.ValueInterface;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 
 public class ReadFileStatement implements StatementInterface{
 
@@ -46,18 +47,26 @@ public class ReadFileStatement implements StatementInterface{
         if(!fileTable.containsKey((StringValue) filePathValue)){
             throw new UndefinedVariableException("The file path value is not defined in file table!\n");
         }
-
-        BufferedReader fileBuffer = fileTable.getValue((StringValue) filePathValue);
-        String line = fileBuffer.readLine();
-        if(line == null){
-            /// default value for int = 0
-            symTable.update(this.variableName, new IntValue());
+        try {
+            BufferedReader fileBuffer = fileTable.getValue((StringValue) filePathValue);
+            String line = fileBuffer.readLine();
+            if (line == null)
+            {
+                /// default value for int = 0
+                symTable.update(this.variableName, new IntValue());
+            }
+            else
+            {
+                try {
+                    symTable.update(this.variableName, new IntValue(Integer.parseInt(line)));
+                } catch (Exception ignored) {
+                    throw new Exception("Cannot read value because EOF has been reached!\n");
+                }
+            }
         }
-        else
-        {
-            symTable.update(this.variableName, new IntValue(Integer.parseInt(line)));
+        catch(IOException ex){
+            throw new IOException("An error has occurred while reading!\n");
         }
-
         return state;
 
     }

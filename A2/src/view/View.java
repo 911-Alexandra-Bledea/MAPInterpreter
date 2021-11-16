@@ -108,7 +108,7 @@ public class View {
 
         ProgramState currentProgramState4 = new ProgramState(new MyStack<StatementInterface>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), programExample4);
-        RepositoryInterface repo4 = new Repository(FOLDER_PATH + "\\test.in");
+        RepositoryInterface repo4 = new Repository(FOLDER_PATH + "\\log4.in");
         ControllerInterface controller4 = new Controller(repo4);
 
         controller4.addProgramState(currentProgramState4);
