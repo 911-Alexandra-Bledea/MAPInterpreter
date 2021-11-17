@@ -1,7 +1,8 @@
 package model.statement;
 
-import model.ADT.DictionaryInterface;
-import model.ADT.ListInterface;
+import model.ADT.Dictionary.DictionaryInterface;
+import model.ADT.Heap.HeapInterface;
+import model.ADT.List.ListInterface;
 import model.ProgramState;
 import model.expression.ExpressionInterface;
 import model.value.ValueInterface;
@@ -27,7 +28,9 @@ public class PrintStatement implements StatementInterface{
     public ProgramState execute(ProgramState state) throws Exception {
         ListInterface<ValueInterface> output = state.getOutput();
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();
-        output.add(expression.evaluate(symbolTable));
+        HeapInterface<Integer, ValueInterface> heap = state.getHeap();
+
+        output.add(expression.evaluate(symbolTable, heap));
         return state;
     }
 }

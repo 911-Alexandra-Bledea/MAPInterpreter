@@ -2,13 +2,12 @@ package model.statement;
 
 import exception.InvalidTypeException;
 import exception.UndefinedVariableException;
-import model.ADT.DictionaryInterface;
+import model.ADT.Dictionary.DictionaryInterface;
+import model.ADT.Heap.HeapInterface;
 import model.ProgramState;
 import model.expression.ExpressionInterface;
 import model.type.TypeInterface;
 import model.value.ValueInterface;
-
-import java.lang.reflect.Type;
 
 public class AssignmentStatement implements StatementInterface{
 
@@ -33,8 +32,9 @@ public class AssignmentStatement implements StatementInterface{
     @Override
     public ProgramState execute(ProgramState state) throws Exception {
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();
+        HeapInterface<Integer, ValueInterface> heap = state.getHeap();
         if(symbolTable.containsKey(id)){
-            ValueInterface newExpressionValue = expression.evaluate(symbolTable);
+            ValueInterface newExpressionValue = expression.evaluate(symbolTable, heap);
             TypeInterface newExpressionType = newExpressionValue.getType();
             TypeInterface typeID = symbolTable.getValue(id).getType();
             if(newExpressionType.equals(typeID)){

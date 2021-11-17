@@ -1,18 +1,19 @@
-package model.statement;
+package model.statement.FilePack;
 
-import com.sun.jdi.Value;
 import exception.InvalidTypeException;
 import exception.UndefinedVariableException;
-import model.ADT.DictionaryInterface;
+import model.ADT.Dictionary.DictionaryInterface;
+import model.ADT.Heap.HeapInterface;
 import model.ProgramState;
 import model.expression.ExpressionInterface;
+import model.statement.StatementInterface;
 import model.type.StringType;
 import model.value.StringValue;
 import model.value.ValueInterface;
 
 import java.io.BufferedReader;
 
-public class CloseReadFile implements StatementInterface{
+public class CloseReadFile implements StatementInterface {
 
 
     private final ExpressionInterface filePath;
@@ -26,8 +27,9 @@ public class CloseReadFile implements StatementInterface{
 
         DictionaryInterface<String, ValueInterface> symTable = state.getSymbolTable();
         DictionaryInterface<StringValue, BufferedReader> fileTable = state.getFileTable();
+        HeapInterface<Integer, ValueInterface> heap = state.getHeap();
 
-        ValueInterface filePathValue = filePath.evaluate(symTable);
+        ValueInterface filePathValue = filePath.evaluate(symTable, heap);
 
         if(!filePathValue.getType().equals(new StringType())){
             throw new InvalidTypeException("The File Path should be a string!\n");

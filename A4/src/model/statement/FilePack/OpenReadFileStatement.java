@@ -1,11 +1,12 @@
-package model.statement;
+package model.statement.FilePack;
 
 import exception.ExistingVariableException;
 import exception.InvalidTypeException;
-import model.ADT.DictionaryInterface;
-import model.ADT.StackInterface;
+import model.ADT.Dictionary.DictionaryInterface;
+import model.ADT.Heap.HeapInterface;
 import model.ProgramState;
 import model.expression.ExpressionInterface;
+import model.statement.StatementInterface;
 import model.type.StringType;
 import model.value.StringValue;
 import model.value.ValueInterface;
@@ -26,7 +27,9 @@ public class OpenReadFileStatement implements StatementInterface {
 
         DictionaryInterface<String, ValueInterface> symTable = state.getSymbolTable();
         DictionaryInterface<StringValue, BufferedReader> fileTable = state.getFileTable();
-        ValueInterface filePathValue = this.filePath.evaluate(symTable);
+        HeapInterface<Integer, ValueInterface> heap = state.getHeap();
+
+        ValueInterface filePathValue = this.filePath.evaluate(symTable, heap);
 
         if(!filePathValue.getType().equals(new StringType())){
             throw new InvalidTypeException("File path should be a string!\n");

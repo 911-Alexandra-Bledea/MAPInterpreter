@@ -1,13 +1,11 @@
-package model.ADT;
+package model.ADT.List;
 
 import exception.EmptyADTException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-public class MyList<TElem> implements ListInterface<TElem>{
+public class MyList<TElem> implements ListInterface<TElem> {
 
     private List<TElem> list;
 

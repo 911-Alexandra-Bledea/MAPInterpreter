@@ -1,11 +1,12 @@
-package model.statement;
+package model.statement.FilePack;
 
 import exception.InvalidTypeException;
 import exception.UndefinedVariableException;
-import model.ADT.DictionaryInterface;
+import model.ADT.Dictionary.DictionaryInterface;
+import model.ADT.Heap.HeapInterface;
 import model.ProgramState;
 import model.expression.ExpressionInterface;
-import model.expression.RelationalExpression;
+import model.statement.StatementInterface;
 import model.type.IntType;
 import model.type.StringType;
 import model.value.IntValue;
@@ -15,7 +16,7 @@ import model.value.ValueInterface;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class ReadFileStatement implements StatementInterface{
+public class ReadFileStatement implements StatementInterface {
 
     private ExpressionInterface filePath;
     private String variableName;
@@ -29,6 +30,7 @@ public class ReadFileStatement implements StatementInterface{
     public ProgramState execute(ProgramState state) throws Exception{
         DictionaryInterface<String, ValueInterface> symTable = state.getSymbolTable();
         DictionaryInterface<StringValue, BufferedReader> fileTable = state.getFileTable();
+        HeapInterface<Integer, ValueInterface> heap = state.getHeap();
 
         if(!symTable.containsKey(this.variableName)){
             throw new UndefinedVariableException("The variable name is not defined in the symbol table!\n");
@@ -38,7 +40,7 @@ public class ReadFileStatement implements StatementInterface{
             throw new InvalidTypeException(this.variableName + "is not an int!\n");
         }
 
-        ValueInterface filePathValue = filePath.evaluate(symTable);
+        ValueInterface filePathValue = filePath.evaluate(symTable, heap);
 
         if(!filePathValue.getType().equals(new StringType())){
             throw new InvalidTypeException("The file path should be a string!\n");

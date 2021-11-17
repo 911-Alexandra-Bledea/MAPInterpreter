@@ -1,11 +1,9 @@
 package model.expression;
 
-import com.sun.jdi.Value;
 import exception.InvalidOperatorException;
 import exception.InvalidTypeException;
-import model.ADT.DictionaryInterface;
-import model.ADT.HeapInterface;
-import model.ADT.MyHeap;
+import model.ADT.Dictionary.DictionaryInterface;
+import model.ADT.Heap.HeapInterface;
 import model.type.BoolType;
 import model.value.BoolValue;
 import model.value.ValueInterface;

@@ -1,4 +1,4 @@
-package model.ADT;
+package model.ADT.List;
 
 public interface ListInterface<TElem> {
     public void add(TElem newElem);

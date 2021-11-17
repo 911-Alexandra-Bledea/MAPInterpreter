@@ -1,16 +1,16 @@
-package model.ADT;
+package model.ADT.Heap;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyHeap<TKey, TValue> implements HeapInterface<TKey, TValue>{
+public class MyHeap<TKey, TValue> implements HeapInterface<TKey, TValue> {
 
-    private Map<TKey, TValue> dictionary;
+    private Map<TKey, TValue> heap;
     int firstAvailablePosition = 1;
 
     public MyHeap(){
-        this.dictionary = new HashMap<>();
+        this.heap = new HashMap<>();
     }
 
     @Override
@@ -22,6 +22,14 @@ public class MyHeap<TKey, TValue> implements HeapInterface<TKey, TValue>{
     }
 
     @Override
+    public String toString(){
+        String heapVals="";
+        for(TKey key:heap.keySet())
+            heapVals=heapVals.concat("["+key+"->"+heap.get(key).toString()+"] ");
+        return heapVals;
+    }
+
+    @Override
     public int getFirstAvailablePosition(){
         int positionCopy = this.firstAvailablePosition;
         this.setFirstAvailablePosition();
@@ -30,42 +38,42 @@ public class MyHeap<TKey, TValue> implements HeapInterface<TKey, TValue>{
 
     @Override
     public int size() {
-        return this.dictionary.size();
+        return this.heap.size();
     }
 
     @Override
     public boolean containsKey(TKey tKey) {
-        return this.dictionary.containsKey(tKey);
+        return this.heap.containsKey(tKey);
     }
 
     @Override
     public boolean containsValue(TValue tValue) {
-        return this.dictionary.containsValue(tValue);
+        return this.heap.containsValue(tValue);
     }
 
     @Override
     public boolean isEmpty() {
-        return this.dictionary.isEmpty();
+        return this.heap.isEmpty();
     }
 
     @Override
     public void update(TKey tKey, TValue newValue) {
-        this.dictionary.replace(tKey,newValue);
+        this.heap.replace(tKey,newValue);
     }
 
     @Override
     public void insert(TKey tKey, TValue newValue) {
-        this.dictionary.put(tKey, newValue);
+        this.heap.put(tKey, newValue);
     }
 
     @Override
     public void clear() {
-        this.dictionary.clear();
+        this.heap.clear();
     }
 
     @Override
     public TValue getValue(TKey tKey) {
-        return this.dictionary.get(tKey);
+        return this.heap.get(tKey);
     }
 
     @Override
@@ -75,16 +83,16 @@ public class MyHeap<TKey, TValue> implements HeapInterface<TKey, TValue>{
 
     @Override
     public Collection<TValue> getAllValues() {
-        return this.dictionary.values();
+        return this.heap.values();
     }
 
     @Override
     public Collection<TKey> getAllKeys() {
-        return this.dictionary.keySet();
+        return this.heap.keySet();
     }
 
     @Override
     public Map<TKey, TValue> getAllPairs() {
-        return this.dictionary;
+        return this.heap;
     }
 }

@@ -1,8 +1,9 @@
 package model.statement;
 
 import exception.InvalidTypeException;
-import model.ADT.DictionaryInterface;
-import model.ADT.StackInterface;
+import model.ADT.Dictionary.DictionaryInterface;
+import model.ADT.Heap.HeapInterface;
+import model.ADT.Stack.StackInterface;
 import model.ProgramState;
 import model.expression.ExpressionInterface;
 import model.type.BoolType;
@@ -34,8 +35,9 @@ public class IfStatement implements StatementInterface {
     public ProgramState execute(ProgramState state) throws Exception {
         StackInterface<StatementInterface> stack = state.getExecutionStack();
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();
+        HeapInterface<Integer, ValueInterface> heap = state.getHeap();
 
-        ValueInterface conditionalExpressionVal = expression.evaluate(symbolTable);
+        ValueInterface conditionalExpressionVal = expression.evaluate(symbolTable, heap);
         if (conditionalExpressionVal.getType().equals(new BoolType())) {
             if (((BoolValue) conditionalExpressionVal).getValue()) {
                 stack.push(trueStatement);

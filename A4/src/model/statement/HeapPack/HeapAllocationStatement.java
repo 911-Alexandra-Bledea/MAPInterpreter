@@ -1,19 +1,18 @@
-package model.statement;
+package model.statement.HeapPack;
 
-import com.sun.jdi.Value;
 import exception.InvalidTypeException;
 import exception.UndefinedVariableException;
-import model.ADT.DictionaryInterface;
-import model.ADT.HeapInterface;
-import model.ADT.MyHeap;
+import model.ADT.Dictionary.DictionaryInterface;
+import model.ADT.Heap.HeapInterface;
 import model.ProgramState;
 import model.expression.ExpressionInterface;
+import model.statement.StatementInterface;
 import model.type.ReferenceType;
 import model.type.TypeInterface;
 import model.value.ReferenceValue;
 import model.value.ValueInterface;
 
-public class HeapAllocationStatement implements StatementInterface{
+public class HeapAllocationStatement implements StatementInterface {
 
     private final ExpressionInterface expression;
     private final String variableName;
@@ -48,6 +47,13 @@ public class HeapAllocationStatement implements StatementInterface{
         symTable.update(this.variableName, new ReferenceValue(copyAddress, innerType));
 
         return state;
+    }
+
+    @Override
+    public String toString(){
+        String representation = "";
+        representation += ("new(" + this.variableName + ", " + this.expression.toString() + ");\n");
+        return representation;
     }
 
     @Override

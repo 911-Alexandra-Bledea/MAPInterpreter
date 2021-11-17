@@ -2,15 +2,12 @@ package model.expression;
 
 import exception.InvalidOperatorException;
 import exception.InvalidTypeException;
-import model.ADT.DictionaryInterface;
-import model.ADT.HeapInterface;
-import model.ADT.MyHeap;
+import model.ADT.Dictionary.DictionaryInterface;
+import model.ADT.Heap.HeapInterface;
 import model.type.IntType;
 import model.value.BoolValue;
 import model.value.IntValue;
 import model.value.ValueInterface;
-
-import java.awt.color.ICC_ColorSpace;
 
 public class RelationalExpression implements ExpressionInterface{
 

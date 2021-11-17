@@ -1,12 +1,13 @@
-package model.ADT;
+package model.ADT.Heap;
 
-import java.text.CollationElementIterator;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
-public interface DictionaryInterface<TKey, TValue>
+public interface HeapInterface <TKey, TValue>
 {
+
+    public void setFirstAvailablePosition();
+    public int getFirstAvailablePosition();
     public int size();
     public boolean containsKey(TKey key);
     public boolean containsValue(TValue value);
@@ -19,5 +20,4 @@ public interface DictionaryInterface<TKey, TValue>
     public Collection<TValue> getAllValues();
     public Collection<TKey> getAllKeys();
     public Map<TKey, TValue> getAllPairs();
-
 }

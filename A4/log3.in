@@ -1,0 +1,175 @@
+
+------------------
+Execution Stack: 
+(bool a;(int v;(a=true;(IF(a)THEN(v=2)ELSE(v=3));print(v)))))
+
+Symbol Table:
+[ 
+]
+Output Table:
+
+File Table:
+[ 
+]
+Heap: 
+
+------------------
+Execution Stack: 
+bool a
+(int v;(a=true;(IF(a)THEN(v=2)ELSE(v=3));print(v))))
+
+Symbol Table:
+[ 
+]
+Output Table:
+
+File Table:
+[ 
+]
+Heap: 
+
+------------------
+Execution Stack: 
+(int v;(a=true;(IF(a)THEN(v=2)ELSE(v=3));print(v))))
+
+Symbol Table:
+[ 
+a: false, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+Heap: 
+
+------------------
+Execution Stack: 
+int v
+(a=true;(IF(a)THEN(v=2)ELSE(v=3));print(v)))
+
+Symbol Table:
+[ 
+a: false, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+Heap: 
+
+------------------
+Execution Stack: 
+(a=true;(IF(a)THEN(v=2)ELSE(v=3));print(v)))
+
+Symbol Table:
+[ 
+a: false, 
+v: 0, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+Heap: 
+
+------------------
+Execution Stack: 
+a=true
+(IF(a)THEN(v=2)ELSE(v=3));print(v))
+
+Symbol Table:
+[ 
+a: false, 
+v: 0, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+Heap: 
+
+------------------
+Execution Stack: 
+(IF(a)THEN(v=2)ELSE(v=3));print(v))
+
+Symbol Table:
+[ 
+a: true, 
+v: 0, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+Heap: 
+
+------------------
+Execution Stack: 
+IF(a)THEN(v=2)ELSE(v=3))
+print(v)
+
+Symbol Table:
+[ 
+a: true, 
+v: 0, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+Heap: 
+
+------------------
+Execution Stack: 
+v=2
+print(v)
+
+Symbol Table:
+[ 
+a: true, 
+v: 0, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+Heap: 
+
+------------------
+Execution Stack: 
+print(v)
+
+Symbol Table:
+[ 
+a: true, 
+v: 2, 
+]
+Output Table:
+
+File Table:
+[ 
+]
+Heap: 
+
+------------------
+Execution Stack: 
+
+Symbol Table:
+[ 
+a: true, 
+v: 2, 
+]
+Output Table:
+2
+
+File Table:
+[ 
+]
+Heap: 

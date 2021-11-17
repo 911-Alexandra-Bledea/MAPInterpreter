@@ -2,8 +2,7 @@ package model.statement;
 
 import exception.ExistingVariableException;
 import exception.InvalidTypeException;
-import model.ADT.DictionaryInterface;
-import model.ADT.StackInterface;
+import model.ADT.Dictionary.DictionaryInterface;
 import model.ProgramState;
 import model.type.*;
 import model.value.*;

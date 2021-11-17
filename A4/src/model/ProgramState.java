@@ -1,18 +1,14 @@
 package model;
 
-import com.sun.jdi.Value;
-import model.ADT.DictionaryInterface;
-import model.ADT.HeapInterface;
-import model.ADT.ListInterface;
-import model.ADT.StackInterface;
+import model.ADT.Dictionary.DictionaryInterface;
+import model.ADT.Heap.HeapInterface;
+import model.ADT.List.ListInterface;
+import model.ADT.Stack.StackInterface;
 import model.statement.StatementInterface;
 import model.value.StringValue;
 import model.value.ValueInterface;
 
-import javax.management.StringValueExp;
-import javax.swing.plaf.nimbus.State;
 import java.io.BufferedReader;
-import java.nio.Buffer;
 
 public class ProgramState {
     private StackInterface<StatementInterface> executionStack;

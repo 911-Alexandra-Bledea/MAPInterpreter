@@ -2,24 +2,24 @@ package view;
 
 import controller.Controller;
 import controller.ControllerInterface;
-import jdk.dynalink.support.AbstractRelinkableCallSite;
-import model.ADT.*;
+import model.ADT.Dictionary.MyDictionary;
+import model.ADT.Heap.MyHeap;
+import model.ADT.List.MyList;
+import model.ADT.Stack.MyStack;
 import model.ProgramState;
 import model.expression.*;
 import model.statement.*;
-import model.type.BoolType;
-import model.type.IntType;
-import model.type.StringType;
-import model.type.TypeInterface;
-import model.value.BoolValue;
-import model.value.IntValue;
-import model.value.StringValue;
-import model.value.ValueInterface;
+import model.statement.FilePack.CloseReadFile;
+import model.statement.FilePack.OpenReadFileStatement;
+import model.statement.FilePack.ReadFileStatement;
+import model.statement.HeapPack.HeapAllocationStatement;
+import model.statement.HeapPack.HeapWritingStatement;
+import model.type.*;
+import model.value.*;
 import repository.Repository;
 import repository.RepositoryInterface;
 
 import javax.swing.plaf.nimbus.State;
-import java.awt.color.CMMException;
 import java.io.BufferedReader;
 
 
@@ -28,6 +28,9 @@ public class View {
     public static void main(String[] args){
 
         String FOLDER_PATH = "C:\\Users\\night\\Desktop\\Facultate An 2\\Semestrul 1\\Advanced Programming Methods\\MAPInterpreter\\A4";
+
+
+
 
         /// EXAMPLE 1
         /// int v; v=2;Print(v)
@@ -38,12 +41,13 @@ public class View {
         StatementInterface programExample1 = new CompoundStatement(declare_v, new CompoundStatement(assign_v, print_v));
 
         ProgramState currentProgramState1 = new ProgramState(new MyStack<StatementInterface>(), new MyDictionary<String, ValueInterface>(),
-                new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), programExample1);
-
+                new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), programExample1);
         RepositoryInterface repo1 = new Repository(FOLDER_PATH + "\\log1.in");
         ControllerInterface controller1 = new Controller(repo1);
 
         controller1.addProgramState(currentProgramState1);
+
+
 
 
 
@@ -62,11 +66,12 @@ public class View {
                 new CompoundStatement(assign_a, new CompoundStatement(assign_b, print_b))));
 
         ProgramState currentProgramState2 = new ProgramState(new MyStack<StatementInterface>(), new MyDictionary<String, ValueInterface>(),
-                new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), programExample2);
+                new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), programExample2);
         RepositoryInterface repo2 = new Repository(FOLDER_PATH + "\\log2.in");
         ControllerInterface controller2 = new Controller(repo2);
 
         controller2.addProgramState(currentProgramState2);
+
 
 
 
@@ -83,12 +88,14 @@ public class View {
 
         StatementInterface programExample3 = new CompoundStatement(declare_a3, new CompoundStatement(declare_v3, new CompoundStatement(assign_a3,
                         new CompoundStatement(if_statement3, print_v3))));
+
         ProgramState currentProgramState3 = new ProgramState(new MyStack<StatementInterface>(), new MyDictionary<String, ValueInterface>(),
-                new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), programExample3);
+                new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), programExample3);
         RepositoryInterface repo3 = new Repository(FOLDER_PATH + "\\log3.in");
         ControllerInterface controller3 = new Controller(repo3);
 
         controller3.addProgramState(currentProgramState3);
+
 
 
 
@@ -107,11 +114,14 @@ public class View {
                         new CompoundStatement(readFile, new CompoundStatement(print, close))))))));
 
         ProgramState currentProgramState4 = new ProgramState(new MyStack<StatementInterface>(), new MyDictionary<String, ValueInterface>(),
-                new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), programExample4);
+                new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), programExample4);
         RepositoryInterface repo4 = new Repository(FOLDER_PATH + "\\log4.in");
         ControllerInterface controller4 = new Controller(repo4);
 
         controller4.addProgramState(currentProgramState4);
+
+
+
 
 
         /// EXAMPLE 5
@@ -130,11 +140,88 @@ public class View {
                 new CompoundStatement(declare_b5, new CompoundStatement(assign_b5, if_statement5))));
 
         ProgramState currentProgramState5 = new ProgramState(new MyStack<>(), new MyDictionary<String, ValueInterface>(),
-                new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), programExample5);
+                new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), programExample5);
         RepositoryInterface repo5 = new Repository(FOLDER_PATH + "\\log5.in");
         ControllerInterface controller5 = new Controller(repo5);
 
         controller5.addProgramState(currentProgramState5);
+
+
+
+
+
+        /// EXAMPLE 6
+        ///Ref int v;new(v,20);Ref Ref int a; new(a,v);print(v);print(a)
+
+        StatementInterface declare_v6 = new VariableDeclarationStatement("v", new ReferenceType(new IntType()));
+        StatementInterface alloc_v6 = new HeapAllocationStatement("v", new ValueExpression(new IntValue(20)));
+        StatementInterface declare_a6 = new VariableDeclarationStatement("a", new ReferenceType(new ReferenceType(new IntType())));
+        StatementInterface alloc_a6 = new HeapAllocationStatement("a", new VariableExpression("v"));
+        StatementInterface print_v6 = new PrintStatement(new VariableExpression("v"));
+        StatementInterface print_a6 = new PrintStatement(new VariableExpression("a"));
+
+        StatementInterface programExample6 = new CompoundStatement(declare_v6, new CompoundStatement(alloc_v6,
+                new CompoundStatement(declare_a6, new CompoundStatement(alloc_a6, new CompoundStatement(print_v6, print_a6)))));
+
+        ProgramState currentProgramState6 = new ProgramState(new MyStack<>(), new MyDictionary<String, ValueInterface>(),
+                new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), programExample6);
+        RepositoryInterface repo6 = new Repository(FOLDER_PATH + "\\log6.in");
+        ControllerInterface controller6 = new Controller(repo6);
+
+        controller6.addProgramState(currentProgramState6);
+
+
+
+
+        ///EXAMPLE 7
+        ///Ref int v;new(v,20);Ref Ref int a; new(a,v);print(rH(v));print(rH(rH(a))+5)
+
+        StatementInterface declare_v7 = new VariableDeclarationStatement("v", new ReferenceType(new IntType()));
+        StatementInterface alloc_v7 = new HeapAllocationStatement("v", new ValueExpression(new IntValue(20)));
+        StatementInterface declare_a7 = new VariableDeclarationStatement("a", new ReferenceType(new ReferenceType(new IntType())));
+        StatementInterface alloc_a7 = new HeapAllocationStatement("a", new VariableExpression("v"));
+        ExpressionInterface read_v7 = new HeapReadingExpression(new VariableExpression("v"));
+        StatementInterface print_v7 = new PrintStatement(read_v7);
+        ExpressionInterface read_a7 = new HeapReadingExpression(new HeapReadingExpression(new VariableExpression("a")));
+        ExpressionInterface add7 = new ArithmeticExpression(read_a7, new ValueExpression(new IntValue(5)), '+');
+        StatementInterface print_a7 = new PrintStatement(add7);
+
+        StatementInterface programExample7 = new CompoundStatement(declare_v7, new CompoundStatement(alloc_v7, new CompoundStatement(declare_a7,
+                new CompoundStatement(alloc_a7, new CompoundStatement(print_v7, print_a7)))));
+
+        ProgramState currentProgramState7 = new ProgramState(new MyStack<>(), new MyDictionary<String, ValueInterface>(),
+                new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), programExample7);
+        RepositoryInterface repo7 = new Repository(FOLDER_PATH + "\\log7.in");
+        ControllerInterface controller7 = new Controller(repo7);
+
+        controller7.addProgramState(currentProgramState7);
+
+
+
+
+
+        ///EXAMPLE 8
+        ///Ref int v;new(v,20);print(rH(v)); wH(v,30);print(rH(v)+5);
+
+        StatementInterface declare_v8 = new VariableDeclarationStatement("v", new ReferenceType(new IntType()));
+        StatementInterface alloc_v8 = new HeapAllocationStatement("v", new ValueExpression(new IntValue(20)));
+        ExpressionInterface read_v8 = new HeapReadingExpression(new VariableExpression("v"));
+        StatementInterface print_v8 = new PrintStatement(read_v8);
+        StatementInterface write_v8 = new HeapWritingStatement("v", new ValueExpression(new IntValue(30)));
+        ExpressionInterface read_v8_2 = new HeapReadingExpression(new VariableExpression("v"));
+        ExpressionInterface add8 = new ArithmeticExpression(read_v8_2, new ValueExpression(new IntValue(5)), '+');
+        StatementInterface print_v8_2 = new PrintStatement(add8);
+
+        StatementInterface programExample8 = new CompoundStatement(declare_v8, new CompoundStatement(alloc_v8, new CompoundStatement(print_v8,
+                new CompoundStatement(write_v8, print_v8_2))));
+
+        ProgramState currentProgramState8 = new ProgramState(new MyStack<>(), new MyDictionary<String, ValueInterface>(),
+                new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), programExample8);
+        RepositoryInterface repo8 = new Repository(FOLDER_PATH + "\\log8.in");
+        ControllerInterface controller8 = new Controller(repo8);
+
+        controller8.addProgramState(currentProgramState8);
+
 
         TextMenu textMenu = new TextMenu();
 
@@ -151,6 +238,9 @@ public class View {
                     " readFile(varf,varc); print(varc) " +
                     " closeRFile(varf) ", controller4));
             textMenu.addCommand(new RunExampleCommand("5", "int a; a = 25; int b; b = 30; IF (a < b) THEN print(a) ELSE print(b)", controller5));
+            textMenu.addCommand(new RunExampleCommand("6", "Ref int v;new(v,20);Ref Ref int a; new(a,v);print(v);print(a)", controller6));
+            textMenu.addCommand(new RunExampleCommand("7", "Ref int v;new(v,20);Ref Ref int a; new(a,v);print(rH(v));print(rH(rH(a))+5)", controller7));
+            textMenu.addCommand(new RunExampleCommand("8", "Ref int v;new(v,20);print(rH(v)); wH(v,30);print(rH(v)+5);", controller8));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

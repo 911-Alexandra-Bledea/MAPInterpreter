@@ -1,11 +1,10 @@
-package model.ADT;
+package model.ADT.Dictionary;
 
-import java.text.CollationElementIterator;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyDictionary<TKey, TValue> implements DictionaryInterface<TKey, TValue>{
+public class MyDictionary<TKey, TValue> implements DictionaryInterface<TKey, TValue> {
 
     private Map<TKey, TValue> dictionary;
 

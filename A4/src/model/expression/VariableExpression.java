@@ -1,9 +1,8 @@
 package model.expression;
 
 import exception.UndefinedVariableException;
-import model.ADT.DictionaryInterface;
-import model.ADT.HeapInterface;
-import model.ADT.MyHeap;
+import model.ADT.Dictionary.DictionaryInterface;
+import model.ADT.Heap.HeapInterface;
 import model.value.ValueInterface;
 
 public class VariableExpression implements ExpressionInterface{

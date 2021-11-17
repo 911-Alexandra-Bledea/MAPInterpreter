@@ -1,6 +1,6 @@
 package model.statement;
 
-import model.ADT.StackInterface;
+import model.ADT.Stack.StackInterface;
 import model.ProgramState;
 
 public class CompoundStatement implements StatementInterface{

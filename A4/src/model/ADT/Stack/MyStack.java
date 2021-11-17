@@ -1,9 +1,8 @@
-package model.ADT;
+package model.ADT.Stack;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
-public class MyStack<TElem> implements StackInterface<TElem>{
+public class MyStack<TElem> implements StackInterface<TElem> {
 
     private ArrayDeque<TElem> stack;
 

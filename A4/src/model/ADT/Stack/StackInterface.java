@@ -1,4 +1,4 @@
-package model.ADT;
+package model.ADT.Stack;
 
 public interface StackInterface<TElem> {
     public TElem pop();

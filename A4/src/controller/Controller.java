@@ -1,10 +1,9 @@
 package controller;
 
 import exception.EmptyADTException;
-import model.ADT.StackInterface;
+import model.ADT.Stack.StackInterface;
 import model.ProgramState;
 import model.statement.StatementInterface;
-import repository.Repository;
 import repository.RepositoryInterface;
 
 public class Controller implements ControllerInterface{

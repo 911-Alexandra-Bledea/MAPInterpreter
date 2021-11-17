@@ -1,7 +1,7 @@
 package view;
 
-import model.ADT.DictionaryInterface;
-import model.ADT.MyDictionary;
+import model.ADT.Dictionary.DictionaryInterface;
+import model.ADT.Dictionary.MyDictionary;
 
 import java.util.Scanner;
 
