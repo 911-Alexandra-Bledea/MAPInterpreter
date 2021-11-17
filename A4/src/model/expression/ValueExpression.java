@@ -1,6 +1,9 @@
 package model.expression;
 
+import com.sun.jdi.Value;
 import model.ADT.DictionaryInterface;
+import model.ADT.HeapInterface;
+import model.ADT.MyHeap;
 import model.value.ValueInterface;
 
 public class ValueExpression implements ExpressionInterface{
@@ -11,7 +14,7 @@ public class ValueExpression implements ExpressionInterface{
     }
 
     @Override
-    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table) throws Exception {
+    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table, HeapInterface<Integer, ValueInterface> heap) throws Exception {
         return value;
     }
 

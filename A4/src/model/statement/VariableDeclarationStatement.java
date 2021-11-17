@@ -5,14 +5,8 @@ import exception.InvalidTypeException;
 import model.ADT.DictionaryInterface;
 import model.ADT.StackInterface;
 import model.ProgramState;
-import model.type.BoolType;
-import model.type.IntType;
-import model.type.StringType;
-import model.type.TypeInterface;
-import model.value.BoolValue;
-import model.value.IntValue;
-import model.value.StringValue;
-import model.value.ValueInterface;
+import model.type.*;
+import model.value.*;
 
 public class VariableDeclarationStatement implements StatementInterface{
 
@@ -48,6 +42,9 @@ public class VariableDeclarationStatement implements StatementInterface{
         }
         else if(type.equals(new StringType())){
             symbolTable.insert(name, new StringValue());
+        }
+        else if(type instanceof ReferenceType refType){
+            symbolTable.insert(name, new ReferenceValue(refType.getInner()));
         }
         else
         {

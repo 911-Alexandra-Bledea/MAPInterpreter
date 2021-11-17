@@ -3,6 +3,8 @@ package model.expression;
 import exception.InvalidOperatorException;
 import exception.InvalidTypeException;
 import model.ADT.DictionaryInterface;
+import model.ADT.HeapInterface;
+import model.ADT.MyHeap;
 import model.type.IntType;
 import model.value.BoolValue;
 import model.value.IntValue;
@@ -22,15 +24,15 @@ public class RelationalExpression implements ExpressionInterface{
         this.operator = operator;
     }
 
-    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table) throws Exception{
+    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table, HeapInterface<Integer, ValueInterface> heap) throws Exception{
         ValueInterface firstValue, secondValue;
 
-        firstValue = this.firstExpression.evaluate(table);
+        firstValue = this.firstExpression.evaluate(table, heap);
         if(!firstValue.getType().equals(new IntType())){
             throw new InvalidTypeException("First operand is not an integer!\n");
         }
 
-        secondValue = this.secondExpression.evaluate(table);
+        secondValue = this.secondExpression.evaluate(table, heap);
         if(!secondValue.getType().equals(new IntType())){
             throw new InvalidTypeException("Second operand is not an integer!\n");
         }

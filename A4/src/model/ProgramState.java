@@ -2,6 +2,7 @@ package model;
 
 import com.sun.jdi.Value;
 import model.ADT.DictionaryInterface;
+import model.ADT.HeapInterface;
 import model.ADT.ListInterface;
 import model.ADT.StackInterface;
 import model.statement.StatementInterface;
@@ -18,6 +19,7 @@ public class ProgramState {
     private DictionaryInterface<String, ValueInterface> symbolTable;
     private DictionaryInterface<StringValue, BufferedReader> fileTable;
     private ListInterface<ValueInterface> output;
+    private HeapInterface<Integer, ValueInterface> heap;
     private StatementInterface originalProgram;
 
 
@@ -25,11 +27,13 @@ public class ProgramState {
                         DictionaryInterface<String, ValueInterface> symbolTable,
                         ListInterface<ValueInterface> output,
                         DictionaryInterface<StringValue, BufferedReader> fileTable,
+                        HeapInterface<Integer, ValueInterface> heap,
                         StatementInterface program) {
         this.executionStack = executionStack;
         this.symbolTable = symbolTable;
         this.output = output;
         this.fileTable = fileTable;
+        this.heap = heap;
         this.originalProgram = program.deepCopy();
 //        this.executionStack.push(originalProgram);
         this.executionStack.push(program);
@@ -47,6 +51,8 @@ public class ProgramState {
         representation += this.output.toString();
         representation += "\nFile Table:\n";
         representation += this.fileTable.toString();
+        representation += "\nHeap: \n";
+        representation += this.heap.toString();
 
         return representation;
     }
@@ -67,6 +73,10 @@ public class ProgramState {
         return output;
     }
 
+    public HeapInterface<Integer, ValueInterface> getHeap(){
+        return this.heap;
+    }
+
     public void setFileTable(DictionaryInterface<StringValue, BufferedReader> newFileTable){
         this.fileTable = newFileTable;
     }
@@ -81,6 +91,10 @@ public class ProgramState {
 
     public void setOutput(ListInterface<ValueInterface> list){
         output = list;
+    }
+
+    public void setHeap(HeapInterface<Integer, ValueInterface> newHeap){
+        this.heap = newHeap;
     }
 
 }

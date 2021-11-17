@@ -4,6 +4,8 @@ import com.sun.jdi.Value;
 import exception.InvalidOperatorException;
 import exception.InvalidTypeException;
 import model.ADT.DictionaryInterface;
+import model.ADT.HeapInterface;
+import model.ADT.MyHeap;
 import model.type.BoolType;
 import model.value.BoolValue;
 import model.value.ValueInterface;
@@ -21,12 +23,12 @@ public class LogicalExpression implements ExpressionInterface{
     }
 
     @Override
-    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table) throws Exception {
+    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table, HeapInterface<Integer, ValueInterface> heap) throws Exception {
         ValueInterface firstValue;
         ValueInterface secondValue;
-        firstValue = this.firstExpression.evaluate(table);
+        firstValue = this.firstExpression.evaluate(table, heap);
         if(firstValue.getType().equals(new BoolType())){
-            secondValue = this.secondExpression.evaluate(table);
+            secondValue = this.secondExpression.evaluate(table, heap);
             if(secondValue.getType().equals(new BoolType())){
                 boolean firstBoolean = ((BoolValue)firstValue).getValue();
                 boolean secondBoolean = ((BoolValue)secondValue).getValue();

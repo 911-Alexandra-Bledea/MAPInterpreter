@@ -5,6 +5,7 @@ import model.value.ValueInterface;
 
 public class ReferenceType implements TypeInterface{
 
+    ///Reprezinta tipul spre care pointeaza pointerul
     TypeInterface inner;
 
     public ReferenceType(TypeInterface inner){
@@ -12,6 +13,7 @@ public class ReferenceType implements TypeInterface{
     }
 
     public TypeInterface getInner(){
+        ///Returneaza tipul spre care pointeaza pointerul ReferenceValue
         return this.inner;
     }
 

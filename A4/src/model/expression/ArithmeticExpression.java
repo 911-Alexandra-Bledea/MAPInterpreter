@@ -4,6 +4,8 @@ import exception.DivisionByZeroException;
 import exception.InvalidOperatorException;
 import exception.InvalidTypeException;
 import model.ADT.DictionaryInterface;
+import model.ADT.HeapInterface;
+import model.ADT.MyHeap;
 import model.type.IntType;
 import model.value.IntValue;
 import model.value.ValueInterface;
@@ -33,11 +35,11 @@ public class ArithmeticExpression implements ExpressionInterface
         return firstExpression.toString() + operator + secondExpression.toString();
     }
 
-    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table) throws Exception{
+    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table, HeapInterface<Integer, ValueInterface> heap) throws Exception{
         ValueInterface firstValue, secondValue;
-        firstValue = firstExpression.evaluate(table);
+        firstValue = firstExpression.evaluate(table, heap);
         if(firstValue.getType().equals(new IntType())) {
-            secondValue = secondExpression.evaluate(table);
+            secondValue = secondExpression.evaluate(table, heap);
             if (secondValue.getType().equals(new IntType())) {
                 int firstInt = ((IntValue) firstValue).getValue();
                 int secondInt = ((IntValue) secondValue).getValue();
