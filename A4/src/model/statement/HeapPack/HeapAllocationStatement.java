@@ -12,6 +12,11 @@ import model.type.TypeInterface;
 import model.value.ReferenceValue;
 import model.value.ValueInterface;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class HeapAllocationStatement implements StatementInterface {
 
     private final ExpressionInterface expression;

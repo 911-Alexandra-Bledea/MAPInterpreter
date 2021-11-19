@@ -223,6 +223,57 @@ public class View {
         controller8.addProgramState(currentProgramState8);
 
 
+
+
+
+        ///EXAMPLE 9
+        ///Ref int v;new(v,20);Ref Ref int a; new(a,v); new(v,30);print(rH(rH(a)))
+        StatementInterface declare_v9 = new VariableDeclarationStatement("v", new ReferenceType(new IntType()));
+        StatementInterface alloc_v9_1 = new HeapAllocationStatement("v", new ValueExpression(new IntValue(20)));
+        StatementInterface declare_a9 = new VariableDeclarationStatement("a", new ReferenceType(new ReferenceType(new IntType())));
+        StatementInterface alloc_a9 = new HeapAllocationStatement("a", new VariableExpression("v"));
+        StatementInterface alloc_v9_2 = new HeapAllocationStatement("v", new ValueExpression(new IntValue(30)));
+        ExpressionInterface read_a_1 = new HeapReadingExpression(new VariableExpression("a"));
+        ExpressionInterface read_a_2 = new HeapReadingExpression(read_a_1);
+        StatementInterface print_a9 = new PrintStatement(read_a_2);
+
+        StatementInterface programExample9 = new CompoundStatement(declare_v9, new CompoundStatement(alloc_v9_1, new CompoundStatement(declare_a9,
+                new CompoundStatement(alloc_a9, new CompoundStatement(alloc_v9_2, print_a9)))));
+
+        ProgramState currentProgramState9 = new ProgramState(new MyStack<>(), new MyDictionary<String, ValueInterface>(),
+                new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), programExample9);
+        RepositoryInterface repo9 = new Repository(FOLDER_PATH + "\\log9.in");
+        ControllerInterface controller9 = new Controller(repo9);
+
+        controller9.addProgramState(currentProgramState9);
+
+
+
+
+        ///EXAMPLE 10
+        ///int v; v=4; (while (v>0) print(v);v=v-1);print(v)
+        StatementInterface declare_v10 = new VariableDeclarationStatement("v", new IntType());
+        StatementInterface assign_v10_1 = new AssignmentStatement("v", new ValueExpression(new IntValue(4)));
+        ExpressionInterface rel_expr10 = new RelationalExpression(new VariableExpression("v"), new ValueExpression(new IntValue(0)), ">");
+        StatementInterface print_v10_1 = new PrintStatement(new VariableExpression("v"));
+        ExpressionInterface arithmetic_v10 = new ArithmeticExpression(new VariableExpression("v"), new ValueExpression(new IntValue(1)), '-');
+        StatementInterface assign_v10_2 = new AssignmentStatement("v", arithmetic_v10);
+        StatementInterface compoundStatement_v10 = new CompoundStatement(print_v10_1, assign_v10_2);
+        StatementInterface whileStatement_v10 = new WhileStatement(rel_expr10, compoundStatement_v10);
+        StatementInterface print_v10_2 = new PrintStatement(new VariableExpression("v"));
+
+        StatementInterface programExample10 = new CompoundStatement(declare_v10, new CompoundStatement(assign_v10_1, new CompoundStatement(whileStatement_v10, print_v10_2)));
+
+        ProgramState currentProgramState10 = new ProgramState(new MyStack<>(), new MyDictionary<String, ValueInterface>(),
+                new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), programExample10);
+        RepositoryInterface repo10 = new Repository(FOLDER_PATH + "\\log10.in");
+        ControllerInterface controller10 = new Controller(repo10);
+
+        controller10.addProgramState(currentProgramState10);
+
+
+
+
         TextMenu textMenu = new TextMenu();
 
         try {
@@ -241,6 +292,8 @@ public class View {
             textMenu.addCommand(new RunExampleCommand("6", "Ref int v;new(v,20);Ref Ref int a; new(a,v);print(v);print(a)", controller6));
             textMenu.addCommand(new RunExampleCommand("7", "Ref int v;new(v,20);Ref Ref int a; new(a,v);print(rH(v));print(rH(rH(a))+5)", controller7));
             textMenu.addCommand(new RunExampleCommand("8", "Ref int v;new(v,20);print(rH(v)); wH(v,30);print(rH(v)+5);", controller8));
+            textMenu.addCommand(new RunExampleCommand("9", "Ref int v;new(v,20);Ref Ref int a; new(a,v); new(v,30);print(rH(rH(a)))", controller9));
+            textMenu.addCommand(new RunExampleCommand("10", "int v; v=4; (while (v>0) print(v);v=v-1);print(v)", controller10));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

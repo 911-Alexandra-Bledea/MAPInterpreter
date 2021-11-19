@@ -1,5 +1,7 @@
 package model.ADT.Heap;
 
+import model.value.ValueInterface;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +13,21 @@ public class MyHeap<TKey, TValue> implements HeapInterface<TKey, TValue> {
 
     public MyHeap(){
         this.heap = new HashMap<>();
+    }
+
+    @Override
+    public Collection<TValue> values() {
+        return this.heap.values();
+    }
+
+    @Override
+    public Map<TKey, TValue> getContent() {
+        return this.heap;
+    }
+
+    public void setContent(Map<TKey, TValue> newHeap){
+        this.heap.clear();
+        this.heap.putAll(newHeap);
     }
 
     @Override

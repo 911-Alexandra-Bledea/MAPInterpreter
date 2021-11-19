@@ -1,11 +1,16 @@
 package model.ADT.Heap;
 
+import model.value.ValueInterface;
+
 import java.util.Collection;
 import java.util.Map;
 
 public interface HeapInterface <TKey, TValue>
 {
 
+    public Collection<TValue> values();
+    public Map<TKey, TValue> getContent();
+    public void setContent(Map<TKey, TValue> newHeap);
     public void setFirstAvailablePosition();
     public int getFirstAvailablePosition();
     public int size();
