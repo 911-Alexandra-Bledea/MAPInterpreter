@@ -85,4 +85,15 @@ public class MyDictionary<TKey, TValue> implements DictionaryInterface<TKey, TVa
     public Map<TKey, TValue> getAllPairs() {
         return this.dictionary;
     }
+
+    @Override
+    public DictionaryInterface<TKey, TValue> copy() {
+        DictionaryInterface<TKey, TValue> newDictionary = new MyDictionary<>();
+
+        for(TKey key: this.dictionary.keySet()){
+            newDictionary.insert(key, this.dictionary.get(key));
+        }
+
+        return newDictionary;
+    }
 }

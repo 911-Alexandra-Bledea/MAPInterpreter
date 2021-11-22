@@ -31,6 +31,6 @@ public class PrintStatement implements StatementInterface{
         HeapInterface<Integer, ValueInterface> heap = state.getHeap();
 
         output.add(expression.evaluate(symbolTable, heap));
-        return state;
+        return null;
     }
 }

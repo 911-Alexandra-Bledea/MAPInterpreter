@@ -1,5 +1,6 @@
 package model;
 
+import exception.EmptyADTException;
 import model.ADT.Dictionary.DictionaryInterface;
 import model.ADT.Heap.HeapInterface;
 import model.ADT.List.ListInterface;
@@ -17,19 +18,25 @@ public class ProgramState {
     private ListInterface<ValueInterface> output;
     private HeapInterface<Integer, ValueInterface> heap;
     private StatementInterface originalProgram;
+    private int id;
+    private static int nextID = 0;
 
+    public static synchronized int generateNewID(){
+        return nextID++;
+    }
 
     public ProgramState(StackInterface<StatementInterface> executionStack,
                         DictionaryInterface<String, ValueInterface> symbolTable,
                         ListInterface<ValueInterface> output,
                         DictionaryInterface<StringValue, BufferedReader> fileTable,
-                        HeapInterface<Integer, ValueInterface> heap,
+                        HeapInterface<Integer, ValueInterface> heap, int id,
                         StatementInterface program) {
         this.executionStack = executionStack;
         this.symbolTable = symbolTable;
         this.output = output;
         this.fileTable = fileTable;
         this.heap = heap;
+        this.id = id;
         this.originalProgram = program.deepCopy();
 //        this.executionStack.push(originalProgram);
         this.executionStack.push(program);
@@ -39,6 +46,7 @@ public class ProgramState {
     public String toString(){
         String representation = "";
         representation += "\n------------------\n";
+        representation += "Program ID: " + id + "\n";
         representation += "Execution Stack: \n";
         representation += this.executionStack.toString();
         representation += "\nSymbol Table:\n";
@@ -91,6 +99,16 @@ public class ProgramState {
 
     public void setHeap(HeapInterface<Integer, ValueInterface> newHeap){
         this.heap = newHeap;
+    }
+
+    public boolean isNotCompleted(){
+        return this.executionStack.isEmpty();
+    }
+
+    public ProgramState oneStepExecution() throws Exception {
+        if(this.executionStack.isEmpty()) throw new EmptyADTException("ProgramState stack is empty!");
+        StatementInterface currentStatement = this.executionStack.pop();
+        return currentStatement.execute(this);
     }
 
 }

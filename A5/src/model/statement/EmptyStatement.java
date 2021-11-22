@@ -20,6 +20,6 @@ public class EmptyStatement implements StatementInterface{
 
     @Override
     public ProgramState execute(ProgramState state) throws Exception {
-        return state;
+        return null;
     }
 }

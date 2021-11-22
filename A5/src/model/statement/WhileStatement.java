@@ -45,7 +45,7 @@ public class WhileStatement implements  StatementInterface{
                 executionStack.push(this.whileBody);
         }
 
-        return state;
+        return null;
     }
 
     @Override

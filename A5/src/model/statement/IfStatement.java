@@ -47,6 +47,6 @@ public class IfStatement implements StatementInterface {
         } else {
             throw new InvalidTypeException("Conditional xpression is not a boolean!");
         }
-        return state;
+        return null;
     }
 }

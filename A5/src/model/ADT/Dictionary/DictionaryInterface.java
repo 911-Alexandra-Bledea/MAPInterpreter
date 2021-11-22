@@ -21,5 +21,6 @@ public interface DictionaryInterface<TKey, TValue>
     public Collection<TValue> getAllValues();
     public Collection<TKey> getAllKeys();
     public Map<TKey, TValue> getAllPairs();
+    public DictionaryInterface<TKey, TValue> copy();
 
 }

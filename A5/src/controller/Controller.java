@@ -15,11 +15,13 @@ import java.util.Collection;
 import java.util.Dictionary;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
 
 public class Controller implements ControllerInterface{
 
-    public RepositoryInterface repository;
+    private RepositoryInterface repository;
+    private ExecutorService executor;
 
     public Controller(RepositoryInterface repository){
         this.repository = repository;
@@ -31,12 +33,6 @@ public class Controller implements ControllerInterface{
         if(stack.isEmpty()) throw new EmptyADTException("ProgramState stack is empty!");
         StatementInterface currentStatement = stack.pop();
         return currentStatement.execute(state);
-    }
-
-    private Map<Integer, ValueInterface> unsafeGarbageCollector(List<Integer> symTableAddresses, Map<Integer, ValueInterface> heap){
-        return heap.entrySet().stream()
-                .filter(e->symTableAddresses.contains(e.getKey()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     private List<Integer> getAddressesFromSymTable(Collection<ValueInterface> symTableValues){
@@ -92,4 +88,18 @@ public class Controller implements ControllerInterface{
     public void addProgramState(ProgramState newProgramState) {
         repository.addProgramState(newProgramState);
     }
+
+    @Override
+    public List<ProgramState> removeCompletedProgram(List<ProgramState> inProgramList) {
+        return inProgramList.stream()
+                .filter(ProgramState::isNotCompleted)
+                .collect(Collectors.toList());
+    }
 }
+
+//
+//    private Map<Integer, ValueInterface> unsafeGarbageCollector(List<Integer> symTableAddresses, Map<Integer, ValueInterface> heap){
+//        return heap.entrySet().stream()
+//                .filter(e->symTableAddresses.contains(e.getKey()))
+//                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+//    }

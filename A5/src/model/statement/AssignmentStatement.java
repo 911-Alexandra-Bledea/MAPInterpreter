@@ -48,6 +48,6 @@ public class AssignmentStatement implements StatementInterface{
         else{
             throw new UndefinedVariableException("Variable "+id+"is not defined!");
         }
-        return state;
+        return null;
     }
 }

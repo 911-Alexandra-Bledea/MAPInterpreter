@@ -49,6 +49,6 @@ public class VariableDeclarationStatement implements StatementInterface{
         {
             throw new InvalidTypeException("Invalid type!");
         }
-        return state;
+        return null;
     }
 }

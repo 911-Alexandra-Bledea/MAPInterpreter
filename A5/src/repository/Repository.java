@@ -21,12 +21,10 @@ public class Repository implements RepositoryInterface{
         this.logFilePath = filePath;
     }
 
-    public void logPrgStateExec() throws Exception {
+    public void logPrgStateExec(ProgramState program) throws Exception {
         try {
             PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));
-            for (ProgramState prg : this.programStatesQueue) {
-                logFile.append(prg.toString());
-            }
+            logFile.println(program.toString());
             logFile.close();
         }
         catch (IOException exception){
@@ -48,18 +46,29 @@ public class Repository implements RepositoryInterface{
     }
 
     @Override
-    public ProgramState getCurrentProgramState() throws Exception {
-            int size = this.programStatesQueue.size();
-            if(size == 0){
-                throw new EmptyADTException("Empty list!\n");
-            }
-            return this.programStatesQueue.get(size-1);
+    public List<ProgramState> getProgramList() {
+        return this.programStatesQueue;
+    }
+
+    @Override
+    public void setProgramList(List<ProgramState> prg) {
+        this.programStatesQueue = prg;
     }
 
     @Override
     public void addProgramState(ProgramState newProgramState) {
         programStatesQueue.add(newProgramState);
     }
+
+//    @Override
+//    public ProgramState getCurrentProgramState() throws Exception {
+//        int size = this.programStatesQueue.size();
+//        if(size == 0){
+//            throw new EmptyADTException("Empty list!\n");
+//        }
+//        return this.programStatesQueue.get(size-1);
+//    }
+
 }
 
 
