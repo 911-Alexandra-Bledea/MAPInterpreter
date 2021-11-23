@@ -45,7 +45,7 @@ public class OpenReadFileStatement implements StatementInterface {
         catch (FileNotFoundException ex){
             throw new Exception(ex.getMessage());
         }
-        return state;
+        return null;
     }
 
 

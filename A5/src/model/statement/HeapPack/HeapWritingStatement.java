@@ -50,7 +50,7 @@ public class HeapWritingStatement implements StatementInterface {
         }
         heap.update(address, expressionValue);
 
-        return state;
+        return null;
     }
 
     @Override

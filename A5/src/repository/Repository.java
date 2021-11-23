@@ -19,9 +19,13 @@ public class Repository implements RepositoryInterface{
     public Repository(String filePath){
         programStatesQueue = new ArrayList<>();
         this.logFilePath = filePath;
+        try{
+            clearFile();
+        }
+        catch (RepositoryException ignored){}
     }
 
-    public void logPrgStateExec(ProgramState program) throws Exception {
+    public void logPrgStateExec(ProgramState program) throws RepositoryException {
         try {
             PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));
             logFile.println(program.toString());
@@ -33,7 +37,7 @@ public class Repository implements RepositoryInterface{
     }
 
     @Override
-    public void clearFile() throws Exception {
+    public void clearFile() throws RepositoryException {
         try
          {
             PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(this.logFilePath, false)));

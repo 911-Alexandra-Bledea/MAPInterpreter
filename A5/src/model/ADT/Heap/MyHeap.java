@@ -20,11 +20,6 @@ public class MyHeap<TKey, TValue> implements HeapInterface<TKey, TValue> {
         return this.heap.values();
     }
 
-    @Override
-    public Map<TKey, TValue> getContent() {
-        return this.heap;
-    }
-
     public void setContent(Map<TKey, TValue> newHeap){
         this.heap.clear();
         this.heap.putAll(newHeap);
@@ -109,7 +104,8 @@ public class MyHeap<TKey, TValue> implements HeapInterface<TKey, TValue> {
     }
 
     @Override
-    public Map<TKey, TValue> getAllPairs() {
+    public Map<TKey, TValue> getContent() {
         return this.heap;
     }
+
 }

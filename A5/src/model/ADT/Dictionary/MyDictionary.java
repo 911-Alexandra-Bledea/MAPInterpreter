@@ -22,11 +22,6 @@ public class MyDictionary<TKey, TValue> implements DictionaryInterface<TKey, TVa
     }
 
     @Override
-    public Map<TKey, TValue> getContent() {
-        return this.dictionary;
-    }
-
-    @Override
     public int size() {
         return dictionary.size();
     }
@@ -82,7 +77,7 @@ public class MyDictionary<TKey, TValue> implements DictionaryInterface<TKey, TVa
     }
 
     @Override
-    public Map<TKey, TValue> getAllPairs() {
+    public Map<TKey, TValue> getContent() {
         return this.dictionary;
     }
 

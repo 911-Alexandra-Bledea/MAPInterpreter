@@ -51,7 +51,7 @@ public class HeapAllocationStatement implements StatementInterface {
         heap.insert(copyAddress,expValue);
         symTable.update(this.variableName, new ReferenceValue(copyAddress, innerType));
 
-        return state;
+        return null;
     }
 
     @Override

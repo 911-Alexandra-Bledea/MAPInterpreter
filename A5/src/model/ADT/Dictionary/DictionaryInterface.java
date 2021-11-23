@@ -8,7 +8,6 @@ import java.util.Map;
 public interface DictionaryInterface<TKey, TValue>
 {
 
-    public Map<TKey, TValue> getContent();
     public int size();
     public boolean containsKey(TKey key);
     public boolean containsValue(TValue value);
@@ -20,7 +19,7 @@ public interface DictionaryInterface<TKey, TValue>
     public TValue remove(TKey key);
     public Collection<TValue> getAllValues();
     public Collection<TKey> getAllKeys();
-    public Map<TKey, TValue> getAllPairs();
+    public Map<TKey, TValue> getContent();
     public DictionaryInterface<TKey, TValue> copy();
 
 }

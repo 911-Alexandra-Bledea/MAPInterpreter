@@ -43,7 +43,7 @@ public class CloseReadFile implements StatementInterface {
         fileBuffer.close();
         fileTable.remove((StringValue) filePathValue);
 
-        return state;
+        return null;
     }
     public String toString(){
         return "closeRead(" + this.filePath + ");\n";

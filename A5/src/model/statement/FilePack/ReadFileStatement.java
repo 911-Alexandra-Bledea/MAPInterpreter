@@ -69,7 +69,7 @@ public class ReadFileStatement implements StatementInterface {
         catch(IOException ex){
             throw new IOException("An error has occurred while reading!\n");
         }
-        return state;
+        return null;
 
     }
 

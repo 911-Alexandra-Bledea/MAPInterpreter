@@ -9,7 +9,6 @@ public interface HeapInterface <TKey, TValue>
 {
 
     public Collection<TValue> values();
-    public Map<TKey, TValue> getContent();
     public void setContent(Map<TKey, TValue> newHeap);
     public void setFirstAvailablePosition();
     public int getFirstAvailablePosition();
@@ -24,5 +23,5 @@ public interface HeapInterface <TKey, TValue>
     public TValue remove(TKey key);
     public Collection<TValue> getAllValues();
     public Collection<TKey> getAllKeys();
-    public Map<TKey, TValue> getAllPairs();
+    public Map<TKey, TValue> getContent();
 }

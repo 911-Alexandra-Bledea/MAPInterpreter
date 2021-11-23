@@ -4,7 +4,7 @@ Execution Stack:
 (Ref(int) v;(new(v, 20);
 ;(Ref(Ref(int)) a;(new(a, v);
 ;(new(v, 30);
-;print(readHeap(a)))))))
+;print(readHeap(readHeap(a))))))))
 
 Symbol Table:
 [ 
@@ -22,7 +22,7 @@ Ref(int) v
 (new(v, 20);
 ;(Ref(Ref(int)) a;(new(a, v);
 ;(new(v, 30);
-;print(readHeap(a))))))
+;print(readHeap(readHeap(a)))))))
 
 Symbol Table:
 [ 
@@ -39,7 +39,7 @@ Execution Stack:
 (new(v, 20);
 ;(Ref(Ref(int)) a;(new(a, v);
 ;(new(v, 30);
-;print(readHeap(a))))))
+;print(readHeap(readHeap(a)))))))
 
 Symbol Table:
 [ 
@@ -58,7 +58,7 @@ new(v, 20);
 
 (Ref(Ref(int)) a;(new(a, v);
 ;(new(v, 30);
-;print(readHeap(a)))))
+;print(readHeap(readHeap(a))))))
 
 Symbol Table:
 [ 
@@ -75,7 +75,7 @@ Heap:
 Execution Stack: 
 (Ref(Ref(int)) a;(new(a, v);
 ;(new(v, 30);
-;print(readHeap(a)))))
+;print(readHeap(readHeap(a))))))
 
 Symbol Table:
 [ 
@@ -93,7 +93,7 @@ Execution Stack:
 Ref(Ref(int)) a
 (new(a, v);
 ;(new(v, 30);
-;print(readHeap(a))))
+;print(readHeap(readHeap(a)))))
 
 Symbol Table:
 [ 
@@ -110,7 +110,7 @@ Heap:
 Execution Stack: 
 (new(a, v);
 ;(new(v, 30);
-;print(readHeap(a))))
+;print(readHeap(readHeap(a)))))
 
 Symbol Table:
 [ 
@@ -129,7 +129,7 @@ Execution Stack:
 new(a, v);
 
 (new(v, 30);
-;print(readHeap(a)))
+;print(readHeap(readHeap(a))))
 
 Symbol Table:
 [ 
@@ -146,7 +146,7 @@ Heap:
 ------------------
 Execution Stack: 
 (new(v, 30);
-;print(readHeap(a)))
+;print(readHeap(readHeap(a))))
 
 Symbol Table:
 [ 
@@ -164,7 +164,7 @@ Heap:
 Execution Stack: 
 new(v, 30);
 
-print(readHeap(a))
+print(readHeap(readHeap(a)))
 
 Symbol Table:
 [ 
@@ -180,7 +180,7 @@ Heap:
 [1->20] [2->(1,int)] 
 ------------------
 Execution Stack: 
-print(readHeap(a))
+print(readHeap(readHeap(a)))
 
 Symbol Table:
 [ 
@@ -203,7 +203,7 @@ a: (2,Ref(int)),
 v: (3,int), 
 ]
 Output Table:
-(1,int)
+20
 
 File Table:
 [ 

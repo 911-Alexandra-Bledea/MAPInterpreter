@@ -102,7 +102,7 @@ public class ProgramState {
     }
 
     public boolean isNotCompleted(){
-        return this.executionStack.isEmpty();
+        return !this.executionStack.isEmpty();
     }
 
     public ProgramState oneStepExecution() throws Exception {
@@ -110,5 +110,4 @@ public class ProgramState {
         StatementInterface currentStatement = this.executionStack.pop();
         return currentStatement.execute(this);
     }
-
 }
