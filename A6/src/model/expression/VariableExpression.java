@@ -1,8 +1,10 @@
 package model.expression;
 
+import exception.InvalidTypeException;
 import exception.UndefinedVariableException;
 import model.ADT.Dictionary.DictionaryInterface;
 import model.ADT.Heap.HeapInterface;
+import model.type.TypeInterface;
 import model.value.ValueInterface;
 
 public class VariableExpression implements ExpressionInterface{
@@ -23,6 +25,11 @@ public class VariableExpression implements ExpressionInterface{
 
     public String toString(){
         return id;
+    }
+
+    @Override
+    public TypeInterface typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws InvalidTypeException {
+        return typeEnv.getValue(this.id);
     }
 
 }

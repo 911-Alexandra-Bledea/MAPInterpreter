@@ -5,6 +5,7 @@ import exception.InvalidTypeException;
 import model.ADT.Dictionary.DictionaryInterface;
 import model.ADT.Heap.HeapInterface;
 import model.type.IntType;
+import model.type.TypeInterface;
 import model.value.BoolValue;
 import model.value.IntValue;
 import model.value.ValueInterface;
@@ -25,14 +26,7 @@ public class RelationalExpression implements ExpressionInterface{
         ValueInterface firstValue, secondValue;
 
         firstValue = this.firstExpression.evaluate(table, heap);
-        if(!firstValue.getType().equals(new IntType())){
-            throw new InvalidTypeException("First operand is not an integer!\n");
-        }
-
         secondValue = this.secondExpression.evaluate(table, heap);
-        if(!secondValue.getType().equals(new IntType())){
-            throw new InvalidTypeException("Second operand is not an integer!\n");
-        }
 
         int firstInt = ((IntValue)firstValue).getValue();
         int secondInt = ((IntValue)secondValue).getValue();
@@ -71,6 +65,23 @@ public class RelationalExpression implements ExpressionInterface{
         representation += (" " + this.operator + " ");
         representation += (this.secondExpression.toString());
         return representation;
+    }
+
+    @Override
+    public TypeInterface typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws InvalidTypeException {
+        TypeInterface type1, type2;
+        type1 = this.firstExpression.typeCheck(typeEnv);
+        type2 = this.secondExpression.typeCheck(typeEnv);
+
+        if(!type1.equals(new IntType())){
+            throw new InvalidTypeException("First expression is not an integer!\n");
+        }
+
+        if(!type2.equals(new IntType())){
+            throw new InvalidTypeException("Second expression is not an integer!\n");
+        }
+
+        return new IntType();
     }
 
 }

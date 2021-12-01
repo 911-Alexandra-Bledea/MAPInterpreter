@@ -28,6 +28,12 @@ public class VariableDeclarationStatement implements StatementInterface{
     }
 
     @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws Exception {
+        typeEnv.insert(this.name, this.type);
+        return typeEnv;
+    }
+
+    @Override
     public ProgramState execute(ProgramState state) throws Exception {
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();
         if(symbolTable.containsKey(name)){
@@ -45,6 +51,8 @@ public class VariableDeclarationStatement implements StatementInterface{
         else if(type instanceof ReferenceType refType){
             symbolTable.insert(name, new ReferenceValue(refType.getInner()));
         }
+        // I'm not sure if this part will ever be reached, because the compiler doesn't allow for anything but a TypeInterface
+        // to be added, but just in case...
         else
         {
             throw new InvalidTypeException("Invalid type!");

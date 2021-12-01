@@ -8,6 +8,7 @@ import model.ProgramState;
 import model.expression.ExpressionInterface;
 import model.statement.StatementInterface;
 import model.type.StringType;
+import model.type.TypeInterface;
 import model.value.StringValue;
 import model.value.ValueInterface;
 
@@ -56,6 +57,15 @@ public class OpenReadFileStatement implements StatementInterface {
     @Override
     public StatementInterface deepCopy() {
         return new OpenReadFileStatement(filePath);
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws Exception {
+        TypeInterface typeExpression = this.filePath.typeCheck(typeEnv);
+        if(!typeExpression.equals(new StringType())){
+            throw new InvalidTypeException("OpenReadFileStatement: file path should be a stringValue!\n");
+        }
+        return typeEnv;
     }
 
 }

@@ -4,6 +4,7 @@ import model.ADT.Dictionary.DictionaryInterface;
 import model.ADT.Stack.MyStack;
 import model.ADT.Stack.StackInterface;
 import model.ProgramState;
+import model.type.TypeInterface;
 import model.value.ValueInterface;
 
 public class ForkStatement implements StatementInterface{
@@ -27,6 +28,12 @@ public class ForkStatement implements StatementInterface{
     @Override
     public StatementInterface deepCopy() {
         return new ForkStatement(this.statement);
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws Exception {
+        this.statement.typeCheck(typeEnv.copy());
+        return typeEnv;
     }
 
     @Override

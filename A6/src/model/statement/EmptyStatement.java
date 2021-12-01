@@ -1,6 +1,8 @@
 package model.statement;
 
+import model.ADT.Dictionary.DictionaryInterface;
 import model.ProgramState;
+import model.type.TypeInterface;
 
 public class EmptyStatement implements StatementInterface{
 
@@ -16,6 +18,11 @@ public class EmptyStatement implements StatementInterface{
     @Override
     public StatementInterface deepCopy() {
         return new EmptyStatement();
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws Exception {
+        return typeEnv;
     }
 
     @Override

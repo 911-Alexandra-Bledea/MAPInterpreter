@@ -8,17 +8,18 @@ import model.ProgramState;
 import model.expression.ExpressionInterface;
 import model.statement.StatementInterface;
 import model.type.StringType;
+import model.type.TypeInterface;
 import model.value.StringValue;
 import model.value.ValueInterface;
 
 import java.io.BufferedReader;
 
-public class CloseReadFile implements StatementInterface {
+public class CloseReadFileStatement implements StatementInterface {
 
 
     private final ExpressionInterface filePath;
 
-    public CloseReadFile(ExpressionInterface filePath){
+    public CloseReadFileStatement(ExpressionInterface filePath){
         this.filePath = filePath;
     }
 
@@ -30,10 +31,6 @@ public class CloseReadFile implements StatementInterface {
         HeapInterface<Integer, ValueInterface> heap = state.getHeap();
 
         ValueInterface filePathValue = filePath.evaluate(symTable, heap);
-
-        if(!filePathValue.getType().equals(new StringType())){
-            throw new InvalidTypeException("The File Path should be a string!\n");
-        }
 
         if(!fileTable.containsKey((StringValue) filePathValue)){
             throw new UndefinedVariableException("The file path: " + filePathValue + "is not defined in the file table!\n");
@@ -51,7 +48,16 @@ public class CloseReadFile implements StatementInterface {
 
     @Override
     public StatementInterface deepCopy() {
-        return new CloseReadFile(filePath);
+        return new CloseReadFileStatement(filePath);
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws Exception {
+        TypeInterface typeExpression = this.filePath.typeCheck(typeEnv);
+        if(!typeExpression.equals(new StringType())){
+            throw new InvalidTypeException("CloseReadFileStatement: file path should be a stringValue!");
+        }
+        return typeEnv;
     }
 
 }

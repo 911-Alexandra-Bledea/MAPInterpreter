@@ -1,7 +1,9 @@
 package model.expression;
 
+import exception.InvalidTypeException;
 import model.ADT.Dictionary.DictionaryInterface;
 import model.ADT.Heap.HeapInterface;
+import model.type.TypeInterface;
 import model.value.ValueInterface;
 
 public class ValueExpression implements ExpressionInterface{
@@ -18,6 +20,11 @@ public class ValueExpression implements ExpressionInterface{
 
     public String toString(){
         return value.toString();
+    }
+
+    @Override
+    public TypeInterface typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws InvalidTypeException {
+        return this.value.getType();
     }
 
 }

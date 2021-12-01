@@ -1,7 +1,9 @@
 package model.statement;
 
+import model.ADT.Dictionary.DictionaryInterface;
 import model.ADT.Stack.StackInterface;
 import model.ProgramState;
+import model.type.TypeInterface;
 
 public class CompoundStatement implements StatementInterface{
     private StatementInterface firstStatement;
@@ -20,6 +22,11 @@ public class CompoundStatement implements StatementInterface{
     @Override
     public StatementInterface deepCopy() {
         return new CompoundStatement(firstStatement, secondStatement);
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws Exception {
+        return this.secondStatement.typeCheck(this.firstStatement.typeCheck(typeEnv));
     }
 
     @Override

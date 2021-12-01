@@ -1,6 +1,5 @@
 package view;
 
-import com.sun.jdi.Value;
 import controller.Controller;
 import controller.ControllerInterface;
 import model.ADT.Dictionary.MyDictionary;
@@ -10,7 +9,7 @@ import model.ADT.Stack.MyStack;
 import model.ProgramState;
 import model.expression.*;
 import model.statement.*;
-import model.statement.FilePack.CloseReadFile;
+import model.statement.FilePack.CloseReadFileStatement;
 import model.statement.FilePack.OpenReadFileStatement;
 import model.statement.FilePack.ReadFileStatement;
 import model.statement.HeapPack.HeapAllocationStatement;
@@ -20,10 +19,7 @@ import model.value.*;
 import repository.Repository;
 import repository.RepositoryInterface;
 
-import javax.sql.StatementEvent;
-import javax.swing.plaf.nimbus.State;
 import java.io.BufferedReader;
-import java.sql.Statement;
 
 
 public class View {
@@ -110,7 +106,7 @@ public class View {
         StatementInterface intDeclaration = new VariableDeclarationStatement("varc", new IntType());
         StatementInterface readFile = new ReadFileStatement(new VariableExpression("varf"), "varc");
         StatementInterface print = new PrintStatement(new VariableExpression("varc"));
-        StatementInterface close = new CloseReadFile(new VariableExpression("varf"));
+        StatementInterface close = new CloseReadFileStatement(new VariableExpression("varf"));
 
         StatementInterface programExample4 = new CompoundStatement(stringDeclaration, new CompoundStatement(assignment, new CompoundStatement(open,
                 new CompoundStatement(intDeclaration, new CompoundStatement(readFile, new CompoundStatement(print,

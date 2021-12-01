@@ -31,10 +31,6 @@ public class HeapWritingStatement implements StatementInterface {
         }
 
         ValueInterface value = symTable.getValue(this.heapAddress);
-        if(!(value.getType() instanceof ReferenceType)){
-            throw new InvalidTypeException("The value: " + value + " is not a reference type!\n");
-        }
-
         ReferenceValue refValue = (ReferenceValue) value;
         int address = refValue.getHeapAddress();
 
@@ -43,11 +39,7 @@ public class HeapWritingStatement implements StatementInterface {
         }
 
         ValueInterface expressionValue = this.expression.evaluate(symTable, heap);
-        ReferenceValue refVal = ((ReferenceValue) symTable.getValue(this.heapAddress));
-        TypeInterface innerReferencedType = ((ReferenceType)refVal.getType()).getInner();
-        if(!expressionValue.getType().equals(innerReferencedType)){
-            throw new InvalidTypeException("There exists a mismatch between the evaluated expression's type: " + expressionValue.getType() + " and the inner referenced type " + innerReferencedType);
-        }
+
         heap.update(address, expressionValue);
 
         return null;
@@ -63,5 +55,16 @@ public class HeapWritingStatement implements StatementInterface {
     @Override
     public StatementInterface deepCopy() {
         return new HeapWritingStatement(this.heapAddress, this.expression);
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws Exception {
+        TypeInterface typeVariable = typeEnv.getValue(this.heapAddress);
+        TypeInterface typeExpression = this.expression.typeCheck(typeEnv);
+        if(typeVariable.equals(new ReferenceType(typeExpression))){
+            return typeEnv;
+        }
+        else
+            throw new InvalidTypeException("HeapWritingStatement: Expression cannot be evaluated to : " + typeExpression);
     }
 }

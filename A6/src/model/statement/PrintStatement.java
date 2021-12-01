@@ -5,6 +5,7 @@ import model.ADT.Heap.HeapInterface;
 import model.ADT.List.ListInterface;
 import model.ProgramState;
 import model.expression.ExpressionInterface;
+import model.type.TypeInterface;
 import model.value.ValueInterface;
 
 public class PrintStatement implements StatementInterface{
@@ -22,6 +23,12 @@ public class PrintStatement implements StatementInterface{
     @Override
     public StatementInterface deepCopy() {
         return new PrintStatement(expression);
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws Exception {
+        this.expression.typeCheck(typeEnv);
+        return typeEnv;
     }
 
     @Override

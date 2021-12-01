@@ -8,6 +8,7 @@ import model.ADT.Stack.StackInterface;
 import model.ProgramState;
 import model.expression.ExpressionInterface;
 import model.type.BoolType;
+import model.type.TypeInterface;
 import model.value.BoolValue;
 import model.value.ValueInterface;
 
@@ -30,14 +31,6 @@ public class WhileStatement implements  StatementInterface{
         HeapInterface<Integer, ValueInterface> heap = state.getHeap();
 
         ValueInterface evaluatedExpression = this.whileCondition.evaluate(symTable, heap);
-        if(!evaluatedExpression.getType().equals(new BoolType())){
-            throw new InvalidTypeException("The type of the evaluatedExpression: " + evaluatedExpression + " is not a BoolType!\n");
-        }
-
-        if(!(evaluatedExpression instanceof BoolValue)){
-            throw new InvalidOperatorException("The evaluatedExpression: " + evaluatedExpression + " is not a BoolValue!\n");
-        }
-
         if(((BoolValue) evaluatedExpression).getValue()){
             ///First we push on the stack the current statement, in our case exactly the while statement
                 executionStack.push(this);
@@ -51,6 +44,16 @@ public class WhileStatement implements  StatementInterface{
     @Override
     public StatementInterface deepCopy() {
         return new WhileStatement(this.whileCondition, this.whileBody);
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws Exception {
+       TypeInterface typeExpression = this.whileCondition.typeCheck(typeEnv);
+       if(typeExpression.equals(new BoolType())){
+           this.whileBody.typeCheck(typeEnv.copy());
+           return typeEnv;
+       }
+       else throw new InvalidTypeException("WhileStatement: Conditional expression is not boolean!\n");
     }
 
     @Override

@@ -9,6 +9,7 @@ import model.expression.ExpressionInterface;
 import model.statement.StatementInterface;
 import model.type.IntType;
 import model.type.StringType;
+import model.type.TypeInterface;
 import model.value.IntValue;
 import model.value.StringValue;
 import model.value.ValueInterface;
@@ -83,4 +84,18 @@ public class ReadFileStatement implements StatementInterface {
         return new ReadFileStatement(filePath, variableName);
     }
 
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws Exception {
+        TypeInterface typeVariable = typeEnv.getValue(this.variableName);
+        TypeInterface typeExpression = this.filePath.typeCheck(typeEnv);
+        if(typeVariable.equals(new IntType())){
+            if(typeExpression.equals(new StringType())){
+                return typeEnv;
+            }
+            else
+                throw new InvalidTypeException("ReadFileStatement: file path be a stringValue!\n");
+        }
+        else
+            throw new InvalidTypeException("ReadFileStatement" + this.variableName + " is not an integer!\n");
+    }
 }

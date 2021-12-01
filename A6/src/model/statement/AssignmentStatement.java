@@ -30,20 +30,22 @@ public class AssignmentStatement implements StatementInterface{
     }
 
     @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws Exception {
+        TypeInterface typeVariable = typeEnv.getValue(this.id);
+        TypeInterface typeExpression = expression.typeCheck(typeEnv);
+        if(typeVariable.equals(typeExpression)){
+            return typeEnv;
+        }
+        else throw new InvalidTypeException("Assignment: right hand side and left hand side have different types!\n");
+    }
+
+    @Override
     public ProgramState execute(ProgramState state) throws Exception {
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();
         HeapInterface<Integer, ValueInterface> heap = state.getHeap();
         if(symbolTable.containsKey(id)){
             ValueInterface newExpressionValue = expression.evaluate(symbolTable, heap);
-            TypeInterface newExpressionType = newExpressionValue.getType();
-            TypeInterface typeID = symbolTable.getValue(id).getType();
-            if(newExpressionType.equals(typeID)){
-                symbolTable.update(id, newExpressionValue);
-            }
-            else
-            {
-                throw new InvalidTypeException("Type of " + id + " doesn't match the expression's type!");
-            }
+            symbolTable.update(id, newExpressionValue);
         }
         else{
             throw new UndefinedVariableException("Variable "+id+"is not defined!");
