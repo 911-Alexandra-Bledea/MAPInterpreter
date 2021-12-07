@@ -50,6 +50,12 @@ public class WhileStatement implements  StatementInterface{
     public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws Exception {
        TypeInterface typeExpression = this.whileCondition.typeCheck(typeEnv);
        if(typeExpression.equals(new BoolType())){
+           /// In this case we also use a copy of the typeEnv because we can have the case
+           /// while(...)
+           ///{ int a; }
+           /// bool a;
+           /// And here for example, if the condition of while is not true, we would still declare "a" as an int in the typeEnv through the typeChecking even though we shouldn't
+           /// And when we will try to declare "a" as a BOOL it will crash, reason why we use a copy of the typeEnv when we check the whileBody with the typeChecker
            this.whileBody.typeCheck(typeEnv.copy());
            return typeEnv;
        }

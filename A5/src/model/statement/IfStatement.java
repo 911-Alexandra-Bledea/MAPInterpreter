@@ -45,7 +45,7 @@ public class IfStatement implements StatementInterface {
                 stack.push(falseStatement);
             }
         } else {
-            throw new InvalidTypeException("Conditional xpression is not a boolean!");
+            throw new InvalidTypeException("Conditional expression is not a boolean!");
         }
         return null;
     }

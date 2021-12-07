@@ -4,6 +4,7 @@ import exception.InvalidOperatorException;
 import exception.InvalidTypeException;
 import model.ADT.Dictionary.DictionaryInterface;
 import model.ADT.Heap.HeapInterface;
+import model.type.BoolType;
 import model.type.IntType;
 import model.type.TypeInterface;
 import model.value.BoolValue;
@@ -81,7 +82,7 @@ public class RelationalExpression implements ExpressionInterface{
             throw new InvalidTypeException("Second expression is not an integer!\n");
         }
 
-        return new IntType();
+        return new BoolType();
     }
 
 }

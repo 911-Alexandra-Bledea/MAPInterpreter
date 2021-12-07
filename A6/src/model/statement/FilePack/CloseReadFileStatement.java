@@ -16,7 +16,6 @@ import java.io.BufferedReader;
 
 public class CloseReadFileStatement implements StatementInterface {
 
-
     private final ExpressionInterface filePath;
 
     public CloseReadFileStatement(ExpressionInterface filePath){

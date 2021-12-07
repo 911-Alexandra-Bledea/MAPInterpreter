@@ -32,6 +32,8 @@ public class ForkStatement implements StatementInterface{
 
     @Override
     public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws Exception {
+        /// When we make a fork, the child process will use everything we have in the memory until that moment, but when
+        /// It changes something, it won't affect the parent process, because these two can communicate only through the HEAP
         this.statement.typeCheck(typeEnv.copy());
         return typeEnv;
     }

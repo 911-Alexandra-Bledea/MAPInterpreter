@@ -32,9 +32,6 @@ public class OpenReadFileStatement implements StatementInterface {
 
         ValueInterface filePathValue = this.filePath.evaluate(symTable, heap);
 
-        if(!filePathValue.getType().equals(new StringType())){
-            throw new InvalidTypeException("File path should be a string!\n");
-        }
         if(fileTable.containsKey((StringValue) filePathValue)){
             throw new ExistingVariableException("The filepath is already a key in FileTable!\n");
         }

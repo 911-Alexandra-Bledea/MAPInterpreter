@@ -2,6 +2,7 @@ package view;
 
 import controller.Controller;
 import controller.ControllerInterface;
+import model.ADT.Dictionary.DictionaryInterface;
 import model.ADT.Dictionary.MyDictionary;
 import model.ADT.Heap.MyHeap;
 import model.ADT.List.MyList;
@@ -24,9 +25,9 @@ import java.io.BufferedReader;
 
 public class View {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception {
 
-        String FOLDER_PATH = "C:\\Users\\night\\Desktop\\Facultate An 2\\Semestrul 1\\Advanced Programming Methods\\MAPInterpreter\\A5";
+        String FOLDER_PATH = "C:\\Users\\night\\Desktop\\Facultate An 2\\Semestrul 1\\Advanced Programming Methods\\MAPInterpreter\\A6";
 
 
 
@@ -38,6 +39,9 @@ public class View {
         StatementInterface print_v = new PrintStatement(new VariableExpression("v"));
 
         StatementInterface programExample1 = new CompoundStatement(declare_v, new CompoundStatement(assign_v, print_v));
+
+        DictionaryInterface<String, TypeInterface> typeEnvironment1 = new MyDictionary<String, TypeInterface>();
+        programExample1.typeCheck(typeEnvironment1);
 
         ProgramState currentProgramState1 = new ProgramState(new MyStack<StatementInterface>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), ProgramState.generateNewID(), programExample1);
@@ -54,6 +58,7 @@ public class View {
         /// int a;int b; a=2+3*5;b=a+1;Print(b)
         StatementInterface declare_a = new VariableDeclarationStatement("a", new IntType());
         StatementInterface declare_b = new VariableDeclarationStatement("b", new IntType());
+        //StatementInterface declare_b = new VariableDeclarationStatement("b", new StringType());
         ExpressionInterface multiply_a = new ArithmeticExpression(new ValueExpression(new IntValue(3)), new ValueExpression(new IntValue(5)), '*');
         ExpressionInterface add_a = new ArithmeticExpression(multiply_a, new ValueExpression(new IntValue(2)), '+');
         StatementInterface assign_a = new AssignmentStatement("a", add_a);
@@ -64,6 +69,14 @@ public class View {
         StatementInterface programExample2 = new CompoundStatement(declare_a, new CompoundStatement(declare_b,
                 new CompoundStatement(assign_a, new CompoundStatement(assign_b, print_b))));
 
+        DictionaryInterface<String, TypeInterface> typeEnvironment2 = new MyDictionary<String, TypeInterface>();
+        programExample2.typeCheck(typeEnvironment2);
+//        try {
+//            programExample2.typeCheck(typeEnvironment2);
+//        }
+//        catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
         ProgramState currentProgramState2 = new ProgramState(new MyStack<StatementInterface>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), ProgramState.generateNewID(), programExample2);
         RepositoryInterface repo2 = new Repository(FOLDER_PATH + "\\log2.in");
@@ -87,6 +100,9 @@ public class View {
 
         StatementInterface programExample3 = new CompoundStatement(declare_a3, new CompoundStatement(declare_v3, new CompoundStatement(assign_a3,
                         new CompoundStatement(if_statement3, print_v3))));
+
+        DictionaryInterface<String, TypeInterface> typeEnvironment3 = new MyDictionary<String, TypeInterface>();
+        programExample3.typeCheck(typeEnvironment3);
 
         ProgramState currentProgramState3 = new ProgramState(new MyStack<StatementInterface>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), ProgramState.generateNewID(), programExample3);
@@ -112,6 +128,9 @@ public class View {
                 new CompoundStatement(intDeclaration, new CompoundStatement(readFile, new CompoundStatement(print,
                         new CompoundStatement(readFile, new CompoundStatement(print, close))))))));
 
+        DictionaryInterface<String, TypeInterface> typeEnvironment4 = new MyDictionary<String, TypeInterface>();
+        programExample4.typeCheck(typeEnvironment4);
+
         ProgramState currentProgramState4 = new ProgramState(new MyStack<StatementInterface>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), ProgramState.generateNewID(), programExample4);
         RepositoryInterface repo4 = new Repository(FOLDER_PATH + "\\log4.in");
@@ -124,7 +143,7 @@ public class View {
 
 
         /// EXAMPLE 5
-        ///int a; a = 3; int b; b = 4; IF (a > b) THEN print(a) ELSE print(b)
+        ///int a; a = 25; int b; b = 30; IF (a > b) THEN print(a) ELSE print(b)
 
         StatementInterface declare_a5 = new VariableDeclarationStatement("a", new IntType());
         StatementInterface assign_a5 = new AssignmentStatement("a", new ValueExpression(new IntValue(25)));
@@ -137,6 +156,9 @@ public class View {
 
         StatementInterface programExample5 = new CompoundStatement(declare_a5, new CompoundStatement(assign_a5,
                 new CompoundStatement(declare_b5, new CompoundStatement(assign_b5, if_statement5))));
+
+        DictionaryInterface<String, TypeInterface> typeEnvironment5 = new MyDictionary<String, TypeInterface>();
+        programExample5.typeCheck(typeEnvironment5);
 
         ProgramState currentProgramState5 = new ProgramState(new MyStack<>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), ProgramState.generateNewID(), programExample5);
@@ -161,6 +183,9 @@ public class View {
 
         StatementInterface programExample6 = new CompoundStatement(declare_v6, new CompoundStatement(alloc_v6,
                 new CompoundStatement(declare_a6, new CompoundStatement(alloc_a6, new CompoundStatement(print_v6, print_a6)))));
+
+        DictionaryInterface<String, TypeInterface> typeEnvironment6 = new MyDictionary<String, TypeInterface>();
+        programExample6.typeCheck(typeEnvironment6);
 
         ProgramState currentProgramState6 = new ProgramState(new MyStack<>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), ProgramState.generateNewID(), programExample6);
@@ -188,6 +213,9 @@ public class View {
         StatementInterface programExample7 = new CompoundStatement(declare_v7, new CompoundStatement(alloc_v7, new CompoundStatement(declare_a7,
                 new CompoundStatement(alloc_a7, new CompoundStatement(print_v7, print_a7)))));
 
+        DictionaryInterface<String, TypeInterface> typeEnvironment7 = new MyDictionary<String, TypeInterface>();
+        programExample7.typeCheck(typeEnvironment7);
+
         ProgramState currentProgramState7 = new ProgramState(new MyStack<>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), ProgramState.generateNewID(), programExample7);
         RepositoryInterface repo7 = new Repository(FOLDER_PATH + "\\log7.in");
@@ -214,6 +242,9 @@ public class View {
         StatementInterface programExample8 = new CompoundStatement(declare_v8, new CompoundStatement(alloc_v8, new CompoundStatement(print_v8,
                 new CompoundStatement(write_v8, print_v8_2))));
 
+        DictionaryInterface<String, TypeInterface> typeEnvironment8 = new MyDictionary<String, TypeInterface>();
+        programExample8.typeCheck(typeEnvironment8);
+
         ProgramState currentProgramState8 = new ProgramState(new MyStack<>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), ProgramState.generateNewID(), programExample8);
         RepositoryInterface repo8 = new Repository(FOLDER_PATH + "\\log8.in");
@@ -239,6 +270,9 @@ public class View {
         StatementInterface programExample9 = new CompoundStatement(declare_v9, new CompoundStatement(alloc_v9_1, new CompoundStatement(declare_a9,
                 new CompoundStatement(alloc_a9, new CompoundStatement(alloc_v9_2, print_a9)))));
 
+        DictionaryInterface<String, TypeInterface> typeEnvironment9 = new MyDictionary<String, TypeInterface>();
+        programExample9.typeCheck(typeEnvironment9);
+
         ProgramState currentProgramState9 = new ProgramState(new MyStack<>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), ProgramState.generateNewID(), programExample9);
         RepositoryInterface repo9 = new Repository(FOLDER_PATH + "\\log9.in");
@@ -263,6 +297,9 @@ public class View {
         StatementInterface print_v10_2 = new PrintStatement(new VariableExpression("v"));
 
         StatementInterface programExample10 = new CompoundStatement(declare_v10, new CompoundStatement(assign_v10_1, new CompoundStatement(whileStatement_v10, print_v10_2)));
+
+        DictionaryInterface<String, TypeInterface> typeEnvironment10 = new MyDictionary<String, TypeInterface>();
+        programExample10.typeCheck(typeEnvironment10);
 
         ProgramState currentProgramState10 = new ProgramState(new MyStack<>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), ProgramState.generateNewID(), programExample10);
@@ -291,6 +328,9 @@ public class View {
         StatementInterface programExample11 = new CompoundStatement(declare_v11, new CompoundStatement(declare_a11, new CompoundStatement(assign_v11_1,
                 new CompoundStatement(alloc_v11, new CompoundStatement(fork_11, new CompoundStatement(print_v11_1, print_v11_2))))));
 
+        DictionaryInterface<String, TypeInterface> typeEnvironment11 = new MyDictionary<String, TypeInterface>();
+        programExample11.typeCheck(typeEnvironment11);
+
         ProgramState currentProgramState11 = new ProgramState(new MyStack<>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), ProgramState.generateNewID(), programExample11);
         RepositoryInterface repo11 = new Repository(FOLDER_PATH + "\\log11.in");
@@ -303,7 +343,7 @@ public class View {
 
 
         ///EXAMPLE 12
-        ///int v; Ref int  a; v=10; new(a, 22); Fork( wH(a, 30); v=32; print(v);print(rH(a)); (Fork( v=16; print(v));(print(v);print(rH(a)
+        ///int v; Ref int  a; v=10; new(a, 22); Fork( wH(a, 30); v=32; print(v); print(rH(a)); (Fork( v=16; print(v)); (print(v); print(rH(a)))
         StatementInterface declare_v12 = new VariableDeclarationStatement("v", new IntType());
         StatementInterface declare_a12 = new VariableDeclarationStatement("a", new ReferenceType(new IntType()));
         StatementInterface assign_v12_1 = new AssignmentStatement("v", new ValueExpression(new IntValue(10)));
@@ -321,6 +361,9 @@ public class View {
                 new CompoundStatement(assign_v12_1, new CompoundStatement(alloc_a12, new CompoundStatement(fork_12_1,
                         new CompoundStatement(fork_12_2, new CompoundStatement(print_v12_1, print_v12_2)))))));
 
+        DictionaryInterface<String, TypeInterface> typeEnvironment12 = new MyDictionary<String, TypeInterface>();
+        programExample12.typeCheck(typeEnvironment12);
+
         ProgramState currentProgramState12= new ProgramState(new MyStack<>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), ProgramState.generateNewID(), programExample12);
         RepositoryInterface repo12 = new Repository(FOLDER_PATH + "\\log12.in");
@@ -333,7 +376,7 @@ public class View {
 
 
         ///EXAMPLE 13
-        ///int v; Ref int a; v=10; new(a, 22); Fork(wH(a, 30); v=32; print(v); Fork(wH(a, 100); v=50; print(v)); print(rH(a)); print(v); print(rH(a))
+        ///int v; Ref int a; v=10; new(a, 22); Fork(wH(a, 30); v=32; print(v); Fork(wH(a, 100); v=50; print(v)); print(rH(a)); print(v); print(rH(a)))
         StatementInterface declare_v13 = new VariableDeclarationStatement("v", new IntType());
         StatementInterface declare_a13 = new VariableDeclarationStatement("a", new ReferenceType(new IntType()));
         StatementInterface assign_v13_1 = new AssignmentStatement("v", new ValueExpression(new IntValue(10)));
@@ -352,6 +395,9 @@ public class View {
         StatementInterface programExample13 = new CompoundStatement(declare_v13, new CompoundStatement(declare_a13,
                 new CompoundStatement(assign_v13_1, new CompoundStatement(alloc_a13, new CompoundStatement(fork_13_2,
                         new CompoundStatement(print_v13_1, print_v13_2))))));
+
+        DictionaryInterface<String, TypeInterface> typeEnvironment13 = new MyDictionary<String, TypeInterface>();
+        programExample13.typeCheck(typeEnvironment13);
 
         ProgramState currentProgramState13= new ProgramState(new MyStack<>(), new MyDictionary<String, ValueInterface>(),
                 new MyList<ValueInterface>(), new MyDictionary<StringValue, BufferedReader>(), new MyHeap<>(), ProgramState.generateNewID(), programExample13);
@@ -382,8 +428,8 @@ public class View {
             textMenu.addCommand(new RunExampleCommand("9", "Ref int v;new(v,20);Ref Ref int a; new(a,v); new(v,30);print(rH(rH(a)))", controller9));
             textMenu.addCommand(new RunExampleCommand("10", "int v; v=4; (while (v>0) print(v);v=v-1);print(v)", controller10));
             textMenu.addCommand(new RunExampleCommand("11", "int v; Ref int a; v=10;new(a,22); fork(wH(a,30);v=32;print(v);print(rH(a))); print(v);print(rH(a))", controller11));
-            textMenu.addCommand(new RunExampleCommand("12", "int v; Ref int  a; v=10; new(a, 22); Fork( wH(a, 30); v=32; print(v);print(rH(a)); (Fork( v=16; print(v));(print(v);print(rH(a)", controller12));
-            textMenu.addCommand(new RunExampleCommand("13", "int v; Ref int a; v=10; new(a, 22); Fork(wH(a, 30); v=32; print(v); Fork(wH(a, 100); v=50; print(v)); print(rH(a)); print(v); print(rH(a))", controller13));
+            textMenu.addCommand(new RunExampleCommand("12", "int v; Ref int  a; v=10; new(a, 22); Fork( wH(a, 30); v=32; print(v);print(rH(a)); (Fork( v=16; print(v));(print(v);print(rH(a));", controller12));
+            textMenu.addCommand(new RunExampleCommand("13", "int v; Ref int a; v=10; new(a, 22); Fork(wH(a, 30); v=32; print(v); Fork(wH(a, 100); v=50; print(v)); print(rH(a)); print(v); print(rH(a)))", controller13));
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

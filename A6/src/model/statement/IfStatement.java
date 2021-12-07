@@ -39,6 +39,10 @@ public class IfStatement implements StatementInterface {
     public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws Exception {
         TypeInterface typeExpression = this.expression.typeCheck(typeEnv);
         if(typeExpression.equals(new BoolType())){
+            /// We use a copy of the typeEnv when we check the type of the true statement and the false statement because something like this can happen:
+            /// In the true statement we can have declared a variable "a" as an Int and in the false statement we can have a variable "a" declared as a Bool
+            /// And if we use the initial typeChecker for both of them, in the true statement we will have the variable "a" declared already as an Int
+            /// While in the false statement we will try to declare it again as a Bool Type and the program will crash
             this.trueStatement.typeCheck(typeEnv.copy());
             this.falseStatement.typeCheck(typeEnv.copy());
             return typeEnv;

@@ -36,16 +36,7 @@ public class ReadFileStatement implements StatementInterface {
         if(!symTable.containsKey(this.variableName)){
             throw new UndefinedVariableException("The variable name is not defined in the symbol table!\n");
         }
-
-        if(!symTable.getValue(this.variableName).getType().equals(new IntType())){
-            throw new InvalidTypeException(this.variableName + "is not an int!\n");
-        }
-
         ValueInterface filePathValue = filePath.evaluate(symTable, heap);
-
-        if(!filePathValue.getType().equals(new StringType())){
-            throw new InvalidTypeException("The file path should be a string!\n");
-        }
 
         if(!fileTable.containsKey((StringValue) filePathValue)){
             throw new UndefinedVariableException("The file path value is not defined in file table!\n");

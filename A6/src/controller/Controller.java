@@ -61,8 +61,10 @@ public class Controller implements ControllerInterface{
     @Override
     public void fullProgramExecution() throws Exception {
 
+        // We fix the number of threads
         executor = Executors.newFixedThreadPool(2);
-        List<ProgramState> programs = removeCompletedProgram(this.repository.getProgramList()); //nu are niciun sens
+        // We remove the completed programs
+        List<ProgramState> programs = removeCompletedProgram(this.repository.getProgramList());
         while(programs.size() > 0){
             Collection<ValueInterface> addresses = programs.stream().
                     flatMap(program -> program.getSymbolTable().getContent().values().stream())
@@ -70,6 +72,7 @@ public class Controller implements ControllerInterface{
 
             //Collection<ValueInterface> heapAddresses = programs.get(0).getHeap().getContent().values();
 
+            //We apply the safe garbage collector on oru heap
             programs.get(0).getHeap().setContent(this.safeGarbageCollector(this.getAddressesFromSymTable(addresses),
                     this.getAddressesFromHeap(programs.get(0).getHeap().getContent()), programs.get(0)));
 
@@ -94,6 +97,7 @@ public class Controller implements ControllerInterface{
 
     @Override
     public void oneStepForAllPrograms(List<ProgramState> programStatesList) throws InterruptedException {
+        //First we save the initial programStates to a file
         programStatesList.forEach(p -> {
 
             try {
@@ -105,12 +109,15 @@ public class Controller implements ControllerInterface{
         });
 
         /// We create a list with the oneStepExecution function for each programState
+        /// Mainly we prepare the list of callables
         List<Callable<ProgramState>> callList = programStatesList.stream()
                 .map((ProgramState p) -> (Callable<ProgramState>) (p::oneStepExecution))
                 .collect(Collectors.toList());
 
         /// It executes the oneStepExecution function for each programState from the list above
         /// And it takes the return values and place them in a list
+        /// Mainly it starts the execution of the callables
+        /// It returns the list of new ProgramStates (namely threads)
         List<ProgramState> newProgramsList = executor.invokeAll(callList).stream()
                 .map(future ->
                 {
@@ -124,8 +131,10 @@ public class Controller implements ControllerInterface{
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
+        /// We add the new created threads to the list of the existing threads
         programStatesList.addAll(newProgramsList);
 
+        /// We save again all the program states, including the old and the new ones to a file
         programStatesList.forEach(p -> {
             try {
                 this.repository.logPrgStateExec(p);
